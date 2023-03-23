@@ -1,0 +1,5 @@
+pagy:
+  instances:
+    vars: vars
+  items_default: 30
+  page_default: 1
