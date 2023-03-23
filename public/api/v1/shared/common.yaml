@@ -1,0 +1,25 @@
+errors_object:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: false
+    errors:
+      type: array
+      items:
+        type: object
+        properties:
+          code:
+            type: integer
+            required: true
+          message:
+            type: string
+            required: true
+          resource:
+            type: string
+            nullable: true
+            description: The resource which is error
+          field:
+            type: string
+            nullable: true
+            description: The attribute wich is incorrect
