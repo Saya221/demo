@@ -1,0 +1,13 @@
+error_object:
+  description: parameters missing
+  content:
+    application/json:
+      schema:
+        $ref: "common.yaml#/errors_object"
+      examples:
+        when parameters missing:
+          value:
+            success: false
+            errors:
+              - code: 1200
+                message: Invalid parameters.

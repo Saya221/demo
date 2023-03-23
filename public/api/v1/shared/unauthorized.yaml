@@ -1,0 +1,13 @@
+error_object:
+  description: Unauthorized request
+  content:
+    application/json:
+      schema:
+        $ref: "common.yaml#/errors_object"
+      examples:
+        when email or password incorrect:
+          value:
+            success: false
+            errors:
+              - code: 1201
+                message: Please log in.
