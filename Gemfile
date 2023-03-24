@@ -17,6 +17,7 @@ gem "paranoia"
 gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
+gem "sidekiq", "~> 6.5.5"
 
 group :development, :test do
   gem "brakeman", require: false
