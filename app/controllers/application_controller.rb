@@ -14,7 +14,6 @@ class ApplicationController < ActionController::API
   end
 
   def load_jwt_token
-    raise ActionController::RoutingError, nil
     header = request.headers["HTTP_JWT_AUTHORIZATION"]
     raise Api::Error::UnauthorizedRequest, nil unless header.is_a?(String)
 

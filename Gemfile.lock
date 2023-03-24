@@ -84,6 +84,7 @@ GEM
     config (4.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    connection_pool (2.3.0)
     crass (1.0.6)
     date (3.3.3)
     deep_merge (1.2.2)
@@ -218,6 +219,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.8.1)
     regexp_parser (2.7.0)
     rexml (3.2.5)
     rspec-core (3.12.1)
@@ -250,6 +252,10 @@ GEM
     rubocop-ast (1.26.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.11.0)
+    sidekiq (6.5.8)
+      connection_pool (>= 2.2.5, < 3)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -293,6 +299,7 @@ DEPENDENCIES
   rails (~> 7.0.4)
   rspec-rails
   rubocop
+  sidekiq (~> 6.5.5)
   simplecov
   spring
   spring-watcher-listen
