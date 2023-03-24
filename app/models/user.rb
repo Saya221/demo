@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   include BCrypt
 
+  has_many :user_sessions, dependent: :destroy
+
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password_encrypted, presence: true
 

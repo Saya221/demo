@@ -10,6 +10,7 @@ gem "bcrypt"
 gem "bootsnap", require: false
 gem "config"
 gem "figaro"
+gem "jwt"
 gem "mysql2"
 gem "pagy"
 gem "paranoia"
