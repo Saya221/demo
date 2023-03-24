@@ -1,0 +1,7 @@
+en:
+  api:
+    v1:
+      jwt_processing:
+        invalid_token:
+          code: 1500
+          message: Invalid Token

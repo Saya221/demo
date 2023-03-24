@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::SessionsController < Api::V1::BaseController
+  skip_before_action :authenticate_request, only: %i(login)
+
   def login
     raise ActionController::ParameterMissing, nil unless params[:user]
 
@@ -12,6 +14,12 @@ class Api::V1::SessionsController < Api::V1::BaseController
                                         current_time: current_time).encode
 
     render_json token_info: token_info
+  end
+
+  def logout
+    current_session.destroy!
+
+    render_json data: {}, meta: {}
   end
 
   private
