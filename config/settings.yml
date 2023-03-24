@@ -3,3 +3,7 @@ pagy:
     vars: vars
   items_default: 30
   page_default: 1
+jwt:
+  expiration_time: 1800
+  algorithm: HS256
+  token_type: Bearer

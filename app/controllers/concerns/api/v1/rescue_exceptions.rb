@@ -24,8 +24,11 @@ module Api
         )
         rescue_from ActionController::RoutingError, with: :render_routing_error_response
         rescue_from Api::Error::ActionNotAllowed, with: :render_action_not_allowed_response
-        rescue_from Api::Error::UnauthorizedRequest, with: :render_unauthorized_request_response
-
+        rescue_from(
+          Api::Error::UnauthorizedRequest,
+          JWT::DecodeError,
+          with: :render_unauthorized_request_response
+        )
         protected
 
         def render_invalid_params_response(status: :bad_request)
