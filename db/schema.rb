@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_24_042839) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_25_043823) do
+  create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "followed_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "shared_urls", charset: "utf8mb4", force: :cascade do |t|
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shared_urls_on_user_id"
+  end
+
   create_table "user_sessions", charset: "utf8mb4", force: :cascade do |t|
     t.string "session_token"
     t.string "login_ip"

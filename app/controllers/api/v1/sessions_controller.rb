@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SessionsController < Api::V1::BaseController
-  skip_before_action :authenticate_request, only: %i(login)
+  skip_before_action :authenticate_request, only: %i[login]
 
   def login
     raise ActionController::ParameterMissing, nil unless params[:user]
