@@ -29,6 +29,7 @@ module Api
           JWT::DecodeError,
           with: :render_unauthorized_request_response
         )
+
         protected
 
         def render_invalid_params_response(status: :bad_request)

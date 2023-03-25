@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request
 
   private
+
   attr_reader :current_session, :current_user
 
   def authenticate_request
