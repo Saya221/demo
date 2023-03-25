@@ -1,4 +1,6 @@
-class UsersFollowed < ApplicationRecord
+# frozen_string_literal: true
+
+class Relationship < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :follower, class_name: User.name
