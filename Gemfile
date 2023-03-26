@@ -8,8 +8,10 @@ ruby "3.0.0"
 gem "active_model_serializers"
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "bootstrap-sass"
 gem "config"
 gem "figaro"
+gem "httparty", "~> 0.18.1"
 gem "jwt"
 gem "mysql2"
 gem "pagy"
@@ -17,6 +19,7 @@ gem "paranoia"
 gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
+gem "sass-rails"
 gem "sidekiq", "~> 6.5.5"
 
 group :development, :test do
