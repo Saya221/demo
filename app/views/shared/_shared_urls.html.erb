@@ -1,0 +1,15 @@
+<div class="center">
+  <h3><%= "The Lastest Youtube URL was shared by everyone"%></h3>
+</div>
+
+<div class="container">
+  <% @shared_urls["data"]["shared_urls"].each do |shared_url| %>
+    <div>
+      <p>
+        <%= link_to "#{shared_url['url']}", shared_url["url"] %>
+        <%= "was shared by" %>
+        <%= link_to "#{shared_url['user']['email']}", shared_url["url"] %>
+      </p>
+    </div>
+  <% end %>
+</div>

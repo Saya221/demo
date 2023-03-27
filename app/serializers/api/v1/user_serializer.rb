@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Api::V1::UserSerializer < Api::V1::BaseSerializer
-  attributes :id, :email
+  attributes :id, :name, :email
 
   def attributes *attrs
     super.slice(*fields_custom[:users])
   end
 
+  private
+
   ROOT = {
-    users: %i[id email]
+    users: %i[id name email]
   }.freeze
 end

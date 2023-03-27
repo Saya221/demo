@@ -14,11 +14,18 @@ module SessionsHelper
   private
 
   def user_id
-    HTTParty.get(
-      "http://localhost:3000/api/v1/users",
-      headers: {
-        "Jwt-Authorization": "Bearer " + session["Jwt-Authorization"]
-      }
-    )["data"]["user"]["id"]
+    response = HTTParty.get("http://localhost:3000/api/v1/users", headers: jwt_header)
+
+    response["data"]["user"]["id"] if response["success"]
+  end
+
+  def jwt_header
+    {
+      "Jwt-Authorization": "Bearer #{session['Jwt-Authorization']}"
+    }
+  end
+
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 end

@@ -17,7 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    current_user = nil
     session["Jwt-Authorization"] = nil
 
     redirect_to root_path
@@ -43,11 +42,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-      HTTParty.delete(
-        "http://localhost:3000/api/v1/logout",
-        headers: {
-          "Jwt-Authorization": "Bearer " + session["Jwt-Authorization"]
-        }
-      )
+    HTTParty.delete("http://localhost:3000/api/v1/logout", headers: jwt_header)
   end
 end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Api::V1::SharedUrlsController < Api::V1::BaseController
-  def create
-    current_user.shared_urls.create! url: params[:url]
+  skip_before_action :authenticate_request, only: %i[index]
 
-    render_json data: {}, meta: {}
+  def index
+    render_json SharedUrl.all.includes(:user)
   end
 end
