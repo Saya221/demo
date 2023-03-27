@@ -11,8 +11,6 @@ class Api::V1::SharedUrlSerializer < Api::V1::BaseSerializer
     Api::V1::UserSerializer.new object.user, type: :root
   end
 
-  private
-
   ROOT = {
     shared_urls: %i[id url user]
   }.freeze

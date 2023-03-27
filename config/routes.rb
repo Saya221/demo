@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # root to: redirect("/swagger/index.html"
+  # FE
 
   root to: "static_pages#index"
   get "/signup", to: "users#new"
@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :shared_urls, only: %i(new create)
   resources :users, only: %i(create new show)
 
+  # BE
+
+  # root to: redirect("/swagger/index.html"
   namespace :api, format: :json do
     namespace :v1 do
       resources :sign_up_users, only: %i(create)

@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 
 class SharedUrlsController < ApplicationController
   before_action :logged_in_user, only: %i[new create]
@@ -6,12 +6,8 @@ class SharedUrlsController < ApplicationController
   def new; end
 
   def create
-    if shared_urls["success"]
-      redirect_to root_path
-    else
-      flash.now[:danger] = shared_urls["errors"][0]["message"]
-      redirect_to root_path
-    end
+    flash.now[:danger] = shared_urls["errors"][0]["message"] unless shared_urls["success"]
+    redirect_to root_path
   end
 
   private
@@ -19,9 +15,8 @@ class SharedUrlsController < ApplicationController
   def shared_urls
     @shared_urls ||=
       HTTParty.post(
-        "http://localhost:3000/api/v1/users/#{current_user.id}/shared_urls",
-        headers: jwt_header,
-        body: { url: params[:url] }
+        api_v1_user_shared_urls_path(current_user.id),
+        headers: jwt_header, body: { url: params[:url] }
       )
   end
 end

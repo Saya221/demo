@@ -11,6 +11,7 @@ gem "bootsnap", require: false
 gem "bootstrap-sass"
 gem "config"
 gem "figaro"
+gem "google-api-client"
 gem "httparty", "~> 0.18.1"
 gem "jwt"
 gem "mysql2"
@@ -20,7 +21,6 @@ gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
 gem "sass-rails"
-gem "sidekiq", "~> 6.5.5"
 
 group :development, :test do
   gem "brakeman", require: false

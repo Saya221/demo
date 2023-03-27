@@ -25,16 +25,16 @@ class SessionsController < ApplicationController
   private
 
   def login
-    @login ||=
-      HTTParty.post(
-        "http://localhost:3000/api/v1/login",
-        body: {
-          user: {
-            email: params[:session][:email],
-            password: params[:session][:password]
-          }
-        }
-      )
+    @login ||= HTTParty.post api_v1_login_path, body: login_request_body
+  end
+
+  def login_request_body
+    {
+      user: {
+        email: params[:session][:email],
+        password: params[:session][:password]
+      }
+    }
   end
 
   def access_token
@@ -42,6 +42,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    HTTParty.delete("http://localhost:3000/api/v1/logout", headers: jwt_header)
+    HTTParty.delete api_v1_logout_path, headers: jwt_header
   end
 end
