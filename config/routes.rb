@@ -6,18 +6,16 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  resources :shared_urls, only: %i(create)
-  resources :relationships, only: %i(create destroy)
+  resources :shared_urls, only: %i(new create)
   resources :users, only: %i(create new show)
 
   namespace :api, format: :json do
     namespace :v1 do
       resources :sign_up_users, only: %i(create)
-      resources :shared_urls, only: %i(create)
-      resources :users_shared_urls, only: %i(index)
-      resources :relationships, only: %i(create)
-      resources :users_relationships, only: %i(index)
-
+      resources :shared_urls, only: %i(index)
+      resources :users, only: [] do
+        resources :shared_urls, only: %i(index create), controller: "users/shared_urls"
+      end
       resource :users, only: %i(show)
 
       post :login, to: "sessions#login"

@@ -7,8 +7,6 @@ class User < ApplicationRecord
 
   has_many :user_sessions, dependent: :destroy
   has_many :shared_urls, dependent: :destroy
-  has_many :relationships, foreign_key: :follower_id, dependent: :destroy
-  has_many :following, through: :relationships, source: :followed
 
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password_encrypted, presence: true

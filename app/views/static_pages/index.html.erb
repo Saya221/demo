@@ -1,0 +1,13 @@
+<% if logged_in? %>
+  <div class="row">
+    <section>
+      <%= render "shared/users_shared_urls" %>
+    </section>
+  </div>
+<% else %>
+  <div class="row">
+    <section>
+      <%= render "shared/shared_urls" %>
+    </section>
+  </div>
+<% end %>
