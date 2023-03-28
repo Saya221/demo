@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Description
+  An example app using google-api-client/googleauth
+  Ruby version 3.0.0
+  Rails 7
 
-Things you may want to cover:
+* Starting rails app
+  - bundle install
+  - rails s
 
-* Ruby version
+* Code rules
+  Running before push:
+    - brakeman (for normal injections)
+    - rubocop -A (for coding style)
+    - rspec (check file coverage at least > 80%)
 
-* System dependencies
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
