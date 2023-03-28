@@ -12,10 +12,10 @@ class StaticPagesController < ApplicationController
   private
 
   def shared_urls
-    HTTParty.get("http://localhost:3000/api/v1/shared_urls")
+    HTTParty.get api_v1_shared_urls_path
   end
 
   def users_shared_urls
-    HTTParty.get("http://localhost:3000/api/v1/users/#{current_user.id}/shared_urls", headers: jwt_header)
+    HTTParty.get api_v1_user_shared_urls_path(current_user.id), headers: jwt_header
   end
 end

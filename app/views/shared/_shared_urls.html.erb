@@ -7,8 +7,7 @@
     <div>
       <p>
         <%= link_to "#{shared_url['url']}", shared_url["url"] %>
-        <%= "was shared by" %>
-        <%= link_to "#{shared_url['user']['email']}", shared_url["url"] %>
+        <%= "was shared by #{shared_url['user']['name']}" %>
       </p>
     </div>
   <% end %>

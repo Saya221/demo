@@ -14,7 +14,7 @@ module SessionsHelper
   private
 
   def user_id
-    response = HTTParty.get("http://localhost:3000/api/v1/users", headers: jwt_header)
+    response = HTTParty.get api_v1_users_path, headers: jwt_header
 
     response["data"]["user"]["id"] if response["success"]
   end

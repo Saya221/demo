@@ -7,8 +7,6 @@ class Api::V1::UserSerializer < Api::V1::BaseSerializer
     super.slice(*fields_custom[:users])
   end
 
-  private
-
   ROOT = {
     users: %i[id name email]
   }.freeze
