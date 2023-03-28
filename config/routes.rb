@@ -28,4 +28,9 @@ Rails.application.routes.draw do
       get :ping, to: "health_checks#ping"
     end
   end
+
+
+  # Custom Errors
+  match "*path", to: "application#render404", via: :all
+  match "*path", to: "application#render500", via: :all
 end
