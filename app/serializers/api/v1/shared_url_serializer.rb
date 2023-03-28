@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SharedUrlSerializer < Api::V1::BaseSerializer
-  attributes :id, :url, :user
+  attributes :id, :url, :description, :thumbnail_url, :movie_title, :user
 
   def attributes *attrs
     super.slice(*fields_custom[:shared_urls])
@@ -12,10 +12,10 @@ class Api::V1::SharedUrlSerializer < Api::V1::BaseSerializer
   end
 
   ROOT = {
-    shared_urls: %i[id url user]
+    shared_urls: %i[id url description thumbnail_url movie_title user]
   }.freeze
 
   LIST_USER_SHARED_URLS = {
-    shared_urls: %i[id url]
+    shared_urls: %i[id url description thumbnail_url movie_title]
   }.freeze
 end

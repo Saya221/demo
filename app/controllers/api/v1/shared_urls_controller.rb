@@ -4,6 +4,6 @@ class Api::V1::SharedUrlsController < Api::V1::BaseController
   skip_before_action :authenticate_request, only: %i[index]
 
   def index
-    render_json SharedUrl.all.includes(:user)
+    render_json SharedUrl.lastest.all.includes(:user)
   end
 end

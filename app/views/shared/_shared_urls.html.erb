@@ -4,10 +4,14 @@
 
 <div class="container">
   <% @shared_urls["data"]["shared_urls"].each do |shared_url| %>
-    <div>
-      <p>
-        <%= link_to "#{shared_url['url']}", shared_url["url"] %>
-        <%= "was shared by #{shared_url['user']['name']}" %>
+    <div style="overflow: hidden;">
+      <div class="image-container" alt="image" style="float: left; width: 50%;">
+        <%= link_to(image_tag("#{shared_url['thumbnail_url']}"), shared_url["url"], target: "_blank") %>
+      </div>
+      <p style="float: right; width: 50%;">
+        <%= "Movie title: #{shared_url['movie_title']} "%><br>
+        <%= "Shared by: #{shared_url['user']['name']}" %><br>
+        <%= "Description: #{shared_url['description']} "%>
       </p>
     </div>
   <% end %>

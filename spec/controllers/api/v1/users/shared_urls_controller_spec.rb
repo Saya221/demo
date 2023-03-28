@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
       it do
         expect(response_data[:success]).to eq true
         expect(response_data[:data][:shared_urls].size).to eq 2
-        expect(response_data[:data][:shared_urls][0].size).to eq 2
+        expect(response_data[:data][:shared_urls][0].size).to eq 5
       end
     end
 

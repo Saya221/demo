@@ -9,10 +9,10 @@ RSpec.describe Api::V1::SharedUrlsController do
 
     before { get :index }
 
-    it "when get list shared_urls successfully" do
+    it "when get list shared urls successfully" do
       expect(response_data[:success]).to eq true
       expect(response_data[:data][:shared_urls].size).to eq 2
-      expect(response_data[:data][:shared_urls][0].size).to eq 3
+      expect(response_data[:data][:shared_urls][0].size).to eq 6
     end
   end
 end
