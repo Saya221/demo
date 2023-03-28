@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   private
 
   def login
-    @login ||= HTTParty.post api_v1_login_path, body: login_request_body
+    @login ||= HTTParty.post combined(api_v1_login_path), body: login_request_body
   end
 
   def login_request_body
@@ -42,6 +42,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    HTTParty.delete api_v1_logout_path, headers: jwt_header
+    HTTParty.delete combined(api_v1_logout_path), headers: jwt_header
   end
 end

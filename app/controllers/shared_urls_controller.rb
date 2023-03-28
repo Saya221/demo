@@ -15,7 +15,7 @@ class SharedUrlsController < ApplicationController
   def shared_urls
     @shared_urls ||=
       HTTParty.post(
-        api_v1_user_shared_urls_path(current_user.id),
+        combined(api_v1_user_shared_urls_path(current_user.id)),
         headers: jwt_header, body: { url: params[:url] }
       )
   end
