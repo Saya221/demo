@@ -8,7 +8,7 @@ RSpec.describe Api::V1::SessionsController do
   describe "POST #login" do
     let(:params) { { user: { email: email, password: password } } }
 
-    before { post :login, params: params}
+    before { post :login, params: params }
 
     context "when login successfully" do
       let(:email) { "test@gmail.com" }
@@ -52,7 +52,6 @@ RSpec.describe Api::V1::SessionsController do
   end
 
   describe "DELETE #logout" do
-
     context "when logout successfully" do
       before do
         login

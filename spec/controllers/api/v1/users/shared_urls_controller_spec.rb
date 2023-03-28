@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
   describe "POST #create" do
     let(:params) { { url: url } }
 
-    context "when create user successfully" do
+    context "when user shared url successfully" do
       let(:url) { "https://www.youtube.com/watch?v=TB3EtQQHh60" }
 
       before do
@@ -56,9 +56,21 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
 
       it do
         expect(response_data[:success]).to eq false
-        expect(response_data[:errors][0][:resource]).to eq "shared_url"
-        expect(response_data[:errors][0][:field]).to eq "url"
-        expect(response_data[:errors][0][:code]).to eq 1003
+        expect(response_data[:errors][0][:code]).to eq 1200
+      end
+    end
+
+    context "when not found video_id" do
+      let(:url) { "https://www.youtube.com/watch?v=TB3EtQ" }
+
+      before do
+        login
+        post :create, params: params
+      end
+
+      it do
+        expect(response_data[:success]).to eq false
+        expect(response_data[:errors][0][:code]).to eq 1550
       end
     end
 
