@@ -10,7 +10,7 @@ class Api::V1::YoutubeUrlProcessingService < Api::V1::BaseService
 
     {
       movie_title: video.snippet.title,
-      thumbnail_url: video.snippet.thumbnails.default.url,
+      thumbnail_url: video.snippet.thumbnails.medium.url,
       description: video.snippet.description
     }
   end
