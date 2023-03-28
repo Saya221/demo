@@ -371,6 +371,7 @@ DEPENDENCIES
   faker
   figaro
   google-api-client
+  googleauth
   httparty (~> 0.18.1)
   jwt
   listen

@@ -5,3 +5,7 @@ en:
         invalid_token:
           code: 1500
           message: Invalid Token
+      youtube_url_processing:
+        not_found_video:
+          code: 1550
+          message: Not found youtube video

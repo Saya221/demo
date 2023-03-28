@@ -34,6 +34,5 @@ RSpec.describe Api::V1::UsersController do
         expect(response_data[:errors][0][:code]).to eq 1201
       end
     end
-
   end
 end

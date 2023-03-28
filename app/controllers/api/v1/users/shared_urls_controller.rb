@@ -6,8 +6,16 @@ class Api::V1::Users::SharedUrlsController < Api::V1::BaseController
   end
 
   def create
-    current_user.shared_urls.create! url: params[:url]
+    current_user.shared_urls.create! youtube_url_processing.merge!(url: params[:url])
 
     render_json data: {}, meta: {}
+  end
+
+  private
+
+  def youtube_url_processing
+    raise ActionController::ParameterMissing, nil unless params[:url].present?
+
+    Api::V1::YoutubeUrlProcessingService.new(params[:url].split("v=").last).perform
   end
 end

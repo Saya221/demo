@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_205240) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_28_185450) do
   create_table "shared_urls", charset: "utf8mb4", force: :cascade do |t|
     t.string "url"
+    t.text "description"
+    t.string "thumbnail_url"
+    t.string "movie_title"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
