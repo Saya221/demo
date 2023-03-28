@@ -1,0 +1,14 @@
+ping:
+  get:
+    sumarry: Get server status
+    tags:
+      - HealthChecks
+    description: Use this API to get server status
+    responses:
+      200:
+        description: Get server status successfully
+        content:
+          application/json:
+            schema:
+              type: string
+              example: pong
