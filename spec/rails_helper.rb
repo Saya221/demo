@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "methods_helper"
 require "spec_helper"
+require "shoulda/matchers"
 require "simplecov"
 SimpleCov.start do
   enable_coverage :branch
@@ -22,4 +24,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+  config.include FactoryBot::Syntax::Methods
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+  config.include Shoulda::Matchers::ActiveRecord, type: :model
+  config.include MethodsHelper
 end

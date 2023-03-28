@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   private
 
   def sign_up_user
-    @sign_up_user ||= HTTParty.post api_v1_sign_up_users_path, body: request_body
+    @sign_up_user ||= HTTParty.post combined(api_v1_sign_up_users_path), body: request_body
   end
 
   def request_body
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def login
-    HTTParty.post api_v1_login_path, body: login_request_body
+    @login ||= HTTParty.post combined(api_v1_login_path), body: login_request_body
   end
 
   def login_request_body

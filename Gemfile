@@ -29,6 +29,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
+  gem "shoulda-matchers"
   gem "simplecov"
 end
 

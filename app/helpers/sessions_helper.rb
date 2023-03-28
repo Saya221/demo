@@ -11,10 +11,14 @@ module SessionsHelper
     @current_user ||= User.find_by! id: user_id
   end
 
+  def combined url
+    "#{ENV['SERVER_HOST']}/#{url}"
+  end
+
   private
 
   def user_id
-    response = HTTParty.get api_v1_users_path, headers: jwt_header
+    response = HTTParty.get combined(api_v1_users_path), headers: jwt_header
 
     response["data"]["user"]["id"] if response["success"]
   end
