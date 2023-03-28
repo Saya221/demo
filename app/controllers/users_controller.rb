@@ -6,8 +6,9 @@ class UsersController < ApplicationController
   end
 
   def create
+    load_params
+
     if sign_up_user["success"]
-      login
       session["Jwt-Authorization"] = access_token
       redirect_to root_path
     else
@@ -18,6 +19,14 @@ class UsersController < ApplicationController
 
   private
 
+  attr_reader :name, :email, :password
+
+  def load_params
+    @name = params[:user][:name]
+    @email = params[:user][:email]
+    @password = params[:user][:password]
+  end
+
   def sign_up_user
     @sign_up_user ||= HTTParty.post combined(api_v1_sign_up_users_path), body: request_body
   end
@@ -25,27 +34,16 @@ class UsersController < ApplicationController
   def request_body
     {
       user: {
-        name: params[:user][:name],
-        email: params[:user][:email],
-        password: params[:user][:password]
-      }
-    }
-  end
-
-  def login
-    @login ||= HTTParty.post combined(api_v1_login_path), body: login_request_body
-  end
-
-  def login_request_body
-    {
-      user: {
-        email: params[:user][:email],
-        password: params[:user][:password]
+        name: name,
+        email: email,
+        password: password
       }
     }
   end
 
   def access_token
-    @access_token ||= login["data"]["token_info"]["access_token"]
+    body = { user: { email: email, password: password } }
+    access_token = HTTParty.post combined(api_v1_login_path), body: body
+    access_token["data"]["token_info"]["access_token"]
   end
 end
