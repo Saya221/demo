@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         resources :shared_urls, only: %i(index create), controller: "users/shared_urls"
       end
+
       resource :users, only: %i(show)
 
       post :login, to: "sessions#login"
       delete :logout, to: "sessions#logout"
+
+      # HealthChecks
+      get :ping, to: "health_checks#ping"
     end
   end
 end
