@@ -16,11 +16,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :sign_up_users, only: %i(create)
       resources :shared_urls, only: %i(index)
-      resources :users, only: [] do
+
+      resource :users, only: %i(show) do
         resources :shared_urls, only: %i(index create), controller: "users/shared_urls"
       end
-
-      resource :users, only: %i(show)
 
       post :login, to: "sessions#login"
       delete :logout, to: "sessions#logout"

@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe Api::V1::JwtProcessingService do
   let(:current_session) { create :user_session }
-  let(:current_time) { Time.current.to_i }
   let(:access_token) do
     described_class.new(current_user: current_session.user,
                         current_session: current_session,

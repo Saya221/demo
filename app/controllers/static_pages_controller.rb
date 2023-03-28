@@ -16,6 +16,6 @@ class StaticPagesController < ApplicationController
   end
 
   def users_shared_urls
-    HTTParty.get combined(api_v1_user_shared_urls_path(current_user.id)), headers: jwt_header
+    HTTParty.get combined(api_v1_users_shared_urls_path), headers: jwt_header
   end
 end
