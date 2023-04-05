@@ -1,9 +1,9 @@
 # README
 
 * Description
-  An example app using google-api-client/googleauth
-  Ruby version 3.0.0
-  Rails 7
+  - An example app using google-api-client/googleauth
+  - Ruby version 3.0.0
+  - Rails 7
 
 * Starting rails app
   - bundle install
