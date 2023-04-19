@@ -8,7 +8,7 @@ FROM ruby:3.0.0-alpine3.13
 RUN apk add --no-cache --update build-base mariadb-dev tzdata imagemagick
 
 # Định nghĩa path mà code của app sẽ lưu ở đó
-ENV APP_DIR /Users/renkyrou/Desktop/Ruby/demo
+ENV APP_DIR /Users/renkyrou/Desktop/Ruby/multi_tenants
 RUN mkdir -p $APP_DIR
 WORKDIR $APP_DIR
 

@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  demo:
-    image: demo
+  multi_tentants:
+    image: multi_tentants
     build:
       context: .
       dockerfile: ./Dockerfile

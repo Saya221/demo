@@ -21,6 +21,7 @@ gem "paranoia"
 gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
+gem "ros-apartment", require: "apartment"
 gem "sass-rails"
 
 group :development, :test do
