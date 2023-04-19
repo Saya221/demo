@@ -23,6 +23,7 @@ gem "rack-cors"
 gem "rails", "~> 7.0.4"
 gem "ros-apartment", require: "apartment"
 gem "sass-rails"
+gem "whenever", "~> 1.0", require: false
 
 group :development, :test do
   gem "brakeman", require: false

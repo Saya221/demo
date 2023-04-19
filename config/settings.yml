@@ -7,3 +7,5 @@ jwt:
   expiration_time: 18000
   algorithm: HS256
   token_type: Bearer
+epoch_time:
+  day_in_secs: 86400
