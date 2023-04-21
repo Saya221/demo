@@ -1,13 +1,11 @@
-require "fileutils"
-require "logger"
-require "rake"
+# require "clockwork"
+# require "./config/clock"
 
-namespace :remove_unused_attachments do
+namespace :remove do
   desc "Job auto clean attachments unuse"
-  task remove: :environment do
-
+  task unused_attachments: :environment do
     # Create cronjob log folder
-    cronjob_log_path = "#{Rails.root}/log/cronjob"
+    cronjob_log_path = "#{Rails.root}/log/cronjob/remove_unused_attachments"
     FileUtils.mkdir_p(cronjob_log_path) unless Dir.exists?(cronjob_log_path)
 
     # Init today logfile
@@ -25,3 +23,19 @@ namespace :remove_unused_attachments do
     end
   end
 end
+
+# namespace :clockwork do
+#   desc "Start the Clockwork scheduler"
+#   task :start do
+#     Clockwork::run
+#   end
+
+#   desc "Stop the Clockwork scheduler"
+#   task :stop do
+#     pid = File.read("tmp/clockwork.pid").to_i
+#     Process.kill("TERM", pid)
+#   end
+
+#   desc "Restart the Clockwork scheduler"
+#   task :restart => [:stop, :start]
+# end
