@@ -22,8 +22,12 @@ gem "paranoia"
 gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
+gem "redis", "~> 5.0", ">= 5.0.6"
 gem "ros-apartment", require: "apartment"
+gem "ruby-kafka", "~> 1.5"
 gem "sass-rails"
+gem "sidekiq", "~> 7.0", ">= 7.0.9"
+gem "sidekiq-scheduler", "~> 5.0", ">= 5.0.2"
 # gem "whenever", "~> 1.0", require: false
 
 group :development, :test do

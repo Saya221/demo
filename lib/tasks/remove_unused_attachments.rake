@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require "clockwork"
 # require "./config/clock"
 
@@ -6,7 +8,7 @@ namespace :remove do
   task unused_attachments: :environment do
     # Create cronjob log folder
     cronjob_log_path = "#{Rails.root}/log/cronjob/remove_unused_attachments"
-    FileUtils.mkdir_p(cronjob_log_path) unless Dir.exists?(cronjob_log_path)
+    FileUtils.mkdir_p(cronjob_log_path) unless Dir.exist?(cronjob_log_path)
 
     # Init today logfile
     today = Time.current.to_i / Settings.epoch_time.day_in_secs
