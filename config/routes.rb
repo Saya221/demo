@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # BE
 
-  # root to: redirect("/swagger/index.html"
+  # root to: redirect("/swagger/index.html")
   namespace :api, format: :json do
     namespace :v1 do
       resources :sign_up_users, only: %i(create)
