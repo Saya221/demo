@@ -10,6 +10,7 @@ gem "bcrypt"
 gem "bootsnap", require: false
 gem "bootstrap-sass"
 gem "config"
+gem "fcm", "~> 1.0", ">= 1.0.8"
 gem "figaro"
 gem "google-api-client"
 gem "googleauth"
@@ -21,7 +22,12 @@ gem "pg", "~> 1.5", ">= 1.5.2"
 gem "puma"
 gem "rack-cors"
 gem "rails", "~> 7.0.4"
+gem "redis", "~> 5.0", ">= 5.0.6"
+gem "ruby-kafka", "~> 1.5"
 gem "sass-rails"
+gem "sendgrid-ruby", "~> 6.6", ">= 6.6.2"
+gem "sentry-ruby", "~> 5.9"
+gem "sidekiq", "~> 7.0", ">= 7.0.9"
 
 group :development, :test do
   gem "brakeman", require: false
