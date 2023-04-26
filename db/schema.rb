@@ -11,18 +11,21 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_28_185450) do
-  create_table "shared_urls", charset: "utf8mb4", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "shared_urls", force: :cascade do |t|
     t.string "url"
-    t.text "description"
-    t.string "thumbnail_url"
-    t.string "movie_title"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "movie_title"
+    t.string "thumbnail_url"
+    t.text "description"
     t.index ["user_id"], name: "index_shared_urls_on_user_id"
   end
 
-  create_table "user_sessions", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_sessions", force: :cascade do |t|
     t.string "session_token"
     t.string "login_ip"
     t.string "browser"
@@ -33,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_185450) do
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
     t.string "password_encrypted", null: false
