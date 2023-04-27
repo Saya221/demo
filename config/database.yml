@@ -14,7 +14,7 @@ development:
 
 test:
   <<: *default
-  database: multi_tenants_test
+  database: demo_test
 
 staging:
   <<: *default
