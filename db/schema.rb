@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_28_185450) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_092923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "topic", default: 1
+    t.text "content"
+    t.bigint "creator_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_notifications_on_creator_id"
+  end
 
   create_table "shared_urls", force: :cascade do |t|
     t.string "url"
@@ -44,6 +54,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_185450) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "users_notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notification_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_users_notifications_on_notification_id"
+    t.index ["user_id"], name: "index_users_notifications_on_user_id"
   end
 
 end
