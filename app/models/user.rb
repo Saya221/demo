@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   include BCrypt
 
+  enum role: %i[admin staff]
+
   has_many :user_sessions, dependent: :destroy
   has_many :shared_urls, dependent: :destroy
   has_many :users_notifications, dependent: :destroy

@@ -1,0 +1,7 @@
+en:
+  api:
+    v1:
+      notifications:
+        invalid_topic:
+          code: 1700
+          message: Topic must be one of ["admin", "staff"]
