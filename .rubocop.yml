@@ -8,6 +8,8 @@ AllCops:
 # Changed default format
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Layout/LineLength:
+  Max: 110
 
 # Disabled
 Style/Documentation:

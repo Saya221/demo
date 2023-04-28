@@ -3,6 +3,12 @@ openapi: 3.0.3
 info:
   title: API V1
   version: v1
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   # TODO: Write swagger
 
