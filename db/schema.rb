@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035339) do
   end
 
   create_table "users_notifications", force: :cascade do |t|
+    t.datetime "read_at"
     t.bigint "user_id"
     t.bigint "notification_id"
     t.datetime "deleted_at"

@@ -26,6 +26,7 @@ gem "redis", "~> 5.0", ">= 5.0.6"
 gem "ruby-kafka", "~> 1.5"
 gem "sass-rails"
 gem "sendgrid-ruby", "~> 6.6", ">= 6.6.2"
+gem "sentry-rails", "~> 5.9"
 gem "sentry-ruby", "~> 5.9"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
 
