@@ -13,10 +13,13 @@ RSpec.describe SharedUrl, type: :model do
 
   describe "scopes" do
     context ".lastest" do
-      let!(:shared_url1) { create :shared_url, id: 1 }
-      let!(:shared_url2) { create :shared_url, id: 2 }
+      let!(:shared_url1) { create :shared_url, id: "471a4b88-e327-4583-80c1-85cf438851fa" }
+      let!(:shared_url2) { create :shared_url, id: "5e871d15-a3f8-44d2-a0be-60cca4932393" }
 
-      it { expect(SharedUrl.lastest.ids).to eq [2, 1] }
+      it do
+        expect(SharedUrl.lastest.ids).to eq %w[5e871d15-a3f8-44d2-a0be-60cca4932393
+                                               471a4b88-e327-4583-80c1-85cf438851fa]
+      end
     end
   end
 end
