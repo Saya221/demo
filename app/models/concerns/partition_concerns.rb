@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-module PartitionHelpers
+module PartitionConcerns
   extend ActiveSupport::Concern
 
   class_methods do
-    def set_table_name(uuid = nil)
-      self.table_name = uuid.present? ? get_table_name(uuid) : get_first_partition_table
+    def set_table_name(user_id = nil)
+      self.table_name = user_id.present? ? get_table_name(user_id) : get_first_partition_table
     end
 
-    def get_table_name(uuid)
-      "#{table_name}_" + (Zlib.crc32(uuid) % 1000).to_s
+    def get_table_name(user_id)
+      "#{table_name}_" + (Zlib.crc32(user_id) % 1000).to_s
     end
 
     def get_first_partition_table
@@ -18,6 +18,7 @@ module PartitionHelpers
     end
 
     def union_all_partition_tables
+      self.table_name = name.underscore.pluralize
       partition_table_prefix = "#{table_name}_"
       partition_tables = connection.tables.select do |t|
         t.start_with?(partition_table_prefix)

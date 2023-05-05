@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersNotification < ApplicationRecord
-  include PartitionHelpers
+  include PartitionConcerns
 
   acts_as_paranoid
 
