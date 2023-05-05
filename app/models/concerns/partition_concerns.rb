@@ -19,15 +19,12 @@ module PartitionConcerns
 
     def union_all_partition_tables
       self.table_name = name.underscore.pluralize
-      partition_table_prefix = "#{table_name}_"
-      partition_tables = connection.tables.select do |t|
-        t.start_with?(partition_table_prefix)
-      end
+      partition_tables = connection.tables.select { |t| t.start_with?("#{table_name}_") }
       subqueries = partition_tables.map do |table_name|
         Arel::Nodes::SqlLiteral.new("SELECT * FROM #{table_name}")
       end
       combined_query = Arel::Nodes::SqlLiteral.new(subqueries.join(" UNION ALL "))
-      self.from("(#{combined_query.to_s}) as #{table_name}")
+      from("(#{combined_query}) AS #{table_name}")
     end
   end
 end
