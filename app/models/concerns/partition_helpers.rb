@@ -4,12 +4,12 @@ module PartitionHelpers
   extend ActiveSupport::Concern
 
   class_methods do
-    def set_table_name(uuid = nil)
-      self.table_name = uuid.present? ? get_table_name(uuid) : get_first_partition_table
+    def set_table_name(user_id = nil)
+      self.table_name = user_id.present? ? get_table_name(user_id) : get_first_partition_table
     end
 
-    def get_table_name(uuid)
-      "#{table_name}_" + (Zlib.crc32(uuid) % 1000).to_s
+    def get_table_name(user_id)
+      "#{table_name}_" + (Zlib.crc32(user_id) % 1000).to_s
     end
 
     def get_first_partition_table
