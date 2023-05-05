@@ -67,7 +67,7 @@ class CreateUsersNotifications < ActiveRecord::Migration[7.0]
       DECLARE
         partition_name TEXT;
       BEGIN
-        partition_name := 'users_notifications_' || mod(crc32(NEW.id::text), 1000);
+        partition_name := 'users_notifications_' || mod(crc32(NEW.user_id::text), 1000);
         IF NOT EXISTS(SELECT relname FROM pg_class WHERE relname=partition_name) THEN
           EXECUTE 'CREATE TABLE ' || partition_name || ' (LIKE users_notifications INCLUDING CONSTRAINTS)';
         END IF;
