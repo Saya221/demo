@@ -1,8 +1,8 @@
 class CreateRelationships < ActiveRecord::Migration[7.0]
   def change
-    create_table :relationships do |t|
-      t.references :follower
-      t.references :followed
+    create_table :relationships, id: :uuid do |t|
+      t.references :follower, type: :uuid
+      t.references :followed, type: :uuid
 
       t.datetime :deleted_at
       t.timestamps

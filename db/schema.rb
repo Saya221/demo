@@ -14,19 +14,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "notifications", force: :cascade do |t|
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "topic", default: 1
     t.text "content"
-    t.bigint "creator_id"
+    t.uuid "creator_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_notifications_on_creator_id"
   end
 
-  create_table "shared_urls", force: :cascade do |t|
+  create_table "shared_urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "url"
-    t.bigint "user_id"
+    t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "movie_title"
@@ -35,18 +35,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035339) do
     t.index ["user_id"], name: "index_shared_urls_on_user_id"
   end
 
-  create_table "user_sessions", force: :cascade do |t|
+  create_table "user_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "session_token"
     t.string "login_ip"
     t.string "browser"
-    t.bigint "user_id"
+    t.uuid "user_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
     t.string "password_encrypted", null: false
@@ -57,10 +57,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035339) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "users_notifications", force: :cascade do |t|
+  create_table "users_notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "read_at"
-    t.bigint "user_id"
-    t.bigint "notification_id"
+    t.uuid "user_id"
+    t.uuid "notification_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

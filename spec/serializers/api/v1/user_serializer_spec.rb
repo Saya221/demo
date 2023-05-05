@@ -3,13 +3,15 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::UserSerializer do
-  let(:user) { create(:user, id: 1, name: "abc", email: "test@gmail.com") }
+  let(:user) do
+    create :user, id: "216ab9a7-8c9f-4b33-ad6f-b16ea0c211c6", name: "abc", email: "test@gmail.com"
+  end
 
   describe "serialize type is root" do
     let(:response_data) { convert_serialize described_class.new(user, type: :root) }
     let(:expected_data) do
       {
-        id: 1,
+        id: "216ab9a7-8c9f-4b33-ad6f-b16ea0c211c6",
         name: "abc",
         email: "test@gmail.com"
       }

@@ -1,9 +1,9 @@
 class CreateUsersNotifications < ActiveRecord::Migration[7.0]
   def up
-    create_table :users_notifications do |t|
+    create_table :users_notifications, id: :uuid do |t|
       t.datetime :read_at
-      t.references :user
-      t.references :notification
+      t.references :user, type: :uuid
+      t.references :notification, type: :uuid
 
       t.datetime :deleted_at
       t.timestamps
