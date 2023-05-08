@@ -31,18 +31,18 @@ gem "sentry-ruby", "~> 5.9"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
 
 group :development, :test do
-  gem "brakeman", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails"
-  gem "rubocop", require: false
   gem "shoulda-matchers"
   gem "simplecov"
 end
 
 group :development do
+  gem "brakeman", require: false
   gem "listen"
+  gem "rubocop", require: false
   gem "spring"
   gem "spring-watcher-listen"
 end
