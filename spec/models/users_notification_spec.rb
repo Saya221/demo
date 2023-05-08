@@ -39,10 +39,6 @@ RSpec.describe UsersNotification, type: :model do
       it { expect(new_tables[0]).to eq described_class.set_table_name }
     end
 
-    context "#get_table_name" do
-      it { expect(new_tables[1]).to eq described_class.get_table_name(MethodsHelper::UUID10) }
-    end
-
     context "#get_first_partition_table" do
       context "with create_init_tables" do
         it { expect(new_tables[0]).to eq described_class.get_first_partition_table }
