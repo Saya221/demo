@@ -1,4 +1,3 @@
-require "googleauth"
 require "google/apis/youtube_v3"
 
 scopes = [Google::Apis::YoutubeV3::AUTH_YOUTUBE_READONLY]
