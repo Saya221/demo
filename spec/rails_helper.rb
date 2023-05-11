@@ -6,6 +6,27 @@ require "shoulda/matchers"
 require "simplecov"
 SimpleCov.start do
   enable_coverage :branch
+
+  skip_files = %w[application_controller.rb sessions_controller.rb shared_urls_controller.rb
+                  static_pages_controller.rb users_controller.rb].freeze
+  add_filter do |src_file|
+    File.basename(src_file.filename).in? skip_files
+  end
+
+  add_filter %r{^/config/}
+  add_filter %r{^/db/}
+  add_filter %r{^/spec/}
+
+  add_group "Controllers", "app/controllers"
+  add_group "Forms", "app/forms"
+  add_group "Helpers", "app/helpers"
+  add_group "Jobs", %w[app/jobs app/workers]
+  add_group "Models", "app/models"
+  add_group "Serializers", "app/serializers"
+  add_group "Services", "app/services"
+  add_group "Libraries", "lib/"
+
+  track_files "{app,lib}/**/*.rb"
 end
 
 ENV["RAILS_ENV"] ||= "test"
