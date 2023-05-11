@@ -22,7 +22,6 @@ module Api
           Api::Error::ServiceExecuteFailed,
           with: :render_execute_failed_response
         )
-        rescue_from ActionController::RoutingError, with: :render_routing_error_response
         rescue_from Api::Error::ActionNotAllowed, with: :render_action_not_allowed_response
         rescue_from(
           Api::Error::UnauthorizedRequest,
@@ -52,11 +51,6 @@ module Api
 
         def render_resource_not_found_response(exception, status: :not_found)
           render json: Api::Error::RecordNotFound.new(exception).to_hash, status: status
-        end
-
-        def render_routing_error_response(_exception, status: :not_found)
-          error = Api::BaseError.new I18n.t("errors.route.not_found")
-          render json: error.to_hash, status: status
         end
 
         def render_action_not_allowed_response(exception, status: :forbidden)

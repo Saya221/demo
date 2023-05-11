@@ -1,4 +1,5 @@
 require_relative "boot"
+require_relative "../app/middlewares/routing_error_middleware"
 
 require "rails/all"
 
@@ -9,6 +10,7 @@ module Demo
     config.active_job.queue_adapter = :sidekiq
     config.eager_load_paths += %W( #{config.root}/lib )
     config.load_defaults 7.0
+    config.middleware.use RoutingErrorMiddleware
     config.time_zone = "Hanoi"
   end
 end
