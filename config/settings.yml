@@ -7,3 +7,10 @@ jwt:
   expiration_time: 18000
   algorithm: HS256
   token_type: Bearer
+sendgrid:
+  success_code: ["200", "202", "204"]
+sidekiq:
+  mailers:
+    retry: 5
+epoch_time:
+  day_in_secs: 86400
