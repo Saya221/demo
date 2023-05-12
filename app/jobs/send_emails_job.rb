@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SendEmailsJob < ApplicationJob
-  sidekiq_options queue: :mailers, retry: Settings.sidekiq.mailers.retry
+  sidekiq_options queue: SidekiqQueue::SEND_EMAILS, retry: Settings.sidekiq.mailers.retry
 
   def perform(args = {})
     @args = args.deep_symbolize_keys!
@@ -32,7 +32,7 @@ class SendEmailsJob < ApplicationJob
     @response = Api::V1::SendEmailsService.new(args.except(:email_type)).perform
     response_logger_messages
     logger.info "--Finish--"
-  rescue StandardError => e
+  rescue => e
     logger.info "Service errors: #{e.message}"
   end
 
