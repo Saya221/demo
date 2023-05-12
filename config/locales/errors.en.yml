@@ -24,6 +24,7 @@ en:
       not_an_integer: 1020
       odd: 1021
       even: 1022
+      wrong_format: 1800
     active_record: # Other ActiveRecord errors 1050 - 1199
       not_unique:
         code: 1050

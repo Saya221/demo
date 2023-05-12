@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::SessionsController do
-  let!(:user) { create :user, password: "this is password", email: "test@gmail.com" }
+  let!(:user) { create :user, password: "Aa@123456", email: "test@gmail.com" }
 
   describe "POST #login" do
     let(:params) { { user: { email: email, password: password } } }
@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when login successfully" do
       let(:email) { "test@gmail.com" }
-      let(:password) { "this is password" }
+      let(:password) { "Aa@123456" }
 
       it do
         expect(response_data[:success]).to eq true
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when email not found" do
       let(:email) { "tes@gmail.com" }
-      let(:password) { "this is password" }
+      let(:password) { "Aa@123456" }
 
       it do
         expect(response_data[:success]).to eq false

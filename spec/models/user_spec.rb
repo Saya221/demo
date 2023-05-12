@@ -11,8 +11,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of(:password_encrypted) }
-
     context "email" do
       context ".uniqueness" do
         let!(:user) { create(:user, email: "uniqueness@email.com") }
@@ -38,19 +36,41 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    context "password" do
+      context ".password_format" do
+        allow_password = ["Aa@123456"].freeze
+        disallow_password = [
+          nil,
+          "",
+          "123468",
+          "Aa@12",
+          "aaa@aaa",
+          "aaqjwe"
+        ].freeze
+
+        let(:valid) { build(:user, password: allow_password.sample) }
+        let(:invalid) { build(:user, password: disallow_password.sample) }
+
+        it do
+          expect(valid).to be_valid
+          expect(invalid).not_to be_valid
+        end
+      end
+    end
   end
 
   describe "methods" do
-    let(:user) { create(:user, password: "this is password") }
+    let(:user) { create(:user, password: "Aa@123456") }
 
     context "#password" do
-      it { expect(user.password).to eq "this is password" }
+      it { expect(user.password).to eq "Aa@123456" }
     end
 
     context "#password=" do
-      before { user.password = "password was changed" }
+      before { user.password = "Aa@12345678" }
 
-      it { expect(user.password).to eq "password was changed" }
+      it { expect(user.password).to eq "Aa@12345678" }
     end
   end
 end

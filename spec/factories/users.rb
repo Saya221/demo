@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     email { "user#{Time.current.to_i}#{Faker::Number.hexadecimal}@gmail.com" }
-    password { Faker::Show.play }
+    password { "Aa@123456" }
   end
 end
