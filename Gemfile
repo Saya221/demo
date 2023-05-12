@@ -28,6 +28,7 @@ gem "sass-rails"
 gem "sendgrid-ruby", "~> 6.6", ">= 6.6.2"
 gem "sentry-rails", "~> 5.9"
 gem "sentry-ruby", "~> 5.9"
+gem "sentry-sidekiq", "~> 5.9"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
 
 group :development, :test do

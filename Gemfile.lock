@@ -339,6 +339,9 @@ GEM
       sentry-ruby (~> 5.9.0)
     sentry-ruby (5.9.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    sentry-sidekiq (5.9.0)
+      sentry-ruby (~> 5.9.0)
+      sidekiq (>= 3.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     sidekiq (7.0.9)
@@ -416,6 +419,7 @@ DEPENDENCIES
   sendgrid-ruby (~> 6.6, >= 6.6.2)
   sentry-rails (~> 5.9)
   sentry-ruby (~> 5.9)
+  sentry-sidekiq (~> 5.9)
   shoulda-matchers
   sidekiq (~> 7.0, >= 7.0.9)
   simplecov
