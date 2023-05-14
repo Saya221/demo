@@ -1,0 +1,8 @@
+en: # 1800 - 1900
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              wrong_format: "must have at least one character, one digit, one special character, and a minimum length of %{minimum}"

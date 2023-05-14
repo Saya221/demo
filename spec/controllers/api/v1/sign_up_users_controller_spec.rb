@@ -17,7 +17,7 @@ RSpec.describe Api::V1::SignUpUsersController do
     context "when create user successfully" do
       let(:name) { "test" }
       let(:email) { "test@gmail.com" }
-      let(:password) { "password" }
+      let(:password) { "Aa@123456" }
 
       before { post :create, params: params }
 
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::SignUpUsersController do
     context "when email invalid" do
       let(:name) { "test" }
       let(:email) { "test2@@gmail.com" }
-      let(:password) { "password" }
+      let(:password) { "Aa@123456" }
 
       before { post :create, params: params }
 
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::SignUpUsersController do
 
       let(:name) { "test" }
       let(:email) { "test2@gmail.com" }
-      let(:password) { "password" }
+      let(:password) { "Aa@123456" }
 
       before { post :create, params: params }
 
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::SignUpUsersController do
     context "when email was nil" do
       let(:name) { "test" }
       let(:email) { "" }
-      let(:password) { "password" }
+      let(:password) { "Aa@123456" }
 
       before { post :create, params: params }
 
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::SignUpUsersController do
       end
     end
 
-    context "when password was nil" do
+    context "when password was wrong format" do
       let(:params) do
         {
           user: {
@@ -86,8 +86,8 @@ RSpec.describe Api::V1::SignUpUsersController do
       it do
         expect(response_data[:success]).to eq false
         expect(response_data[:errors][0][:resource]).to eq "user"
-        expect(response_data[:errors][0][:field]).to eq "password_encrypted"
-        expect(response_data[:errors][0][:code]).to eq 1003
+        expect(response_data[:errors][0][:field]).to eq "password"
+        expect(response_data[:errors][0][:code]).to eq 1800
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe Api::V1::SignUpUsersController do
         {
           name: "name",
           email: "email@gmail.com",
-          password: "password"
+          password: "Aa@123456"
         }
       end
 

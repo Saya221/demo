@@ -21,6 +21,7 @@ SimpleCov.start do
   add_group "Forms", "app/forms"
   add_group "Helpers", "app/helpers"
   add_group "Jobs", %w[app/jobs app/workers]
+  add_group "Middlewares", "app/middlewares"
   add_group "Models", "app/models"
   add_group "Serializers", "app/serializers"
   add_group "Services", "app/services"

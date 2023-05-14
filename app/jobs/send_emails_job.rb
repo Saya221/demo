@@ -32,7 +32,7 @@ class SendEmailsJob < ApplicationJob
     @response = Api::V1::SendEmailsService.new(args.except(:email_type)).perform
     response_logger_messages
     logger.info "--Finish--"
-  rescue => e
+  rescue StandardError => e
     logger.info "Service errors: #{e.message}"
   end
 
