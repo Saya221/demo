@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UserSerializer do
   end
 
   describe "serialize type is root" do
-    let(:response_data) { convert_serialize described_class.new(user, type: :root) }
+    let(:response_data) { convert_serialize described_class.new(user) }
     let(:expected_data) do
       {
         id: "216ab9a7-8c9f-4b33-ad6f-b16ea0c211c6",
