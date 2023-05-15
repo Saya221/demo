@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SharedUrlSerializer do
   end
 
   describe "serialize type is root" do
-    let(:response_data) { convert_serialize described_class.new(shared_url, type: :root) }
+    let(:response_data) { convert_serialize described_class.new(shared_url) }
     let(:expected_data) do
       {
         id: "940c7259-0b38-45c0-96d2-56f3513868de",
@@ -28,9 +28,7 @@ RSpec.describe Api::V1::SharedUrlSerializer do
       }
     end
 
-    it do
-      expect(response_data).to eq expected_data
-    end
+    it { expect(response_data).to eq expected_data }
   end
 
   describe "serialize type is list_user_shared_urls" do
