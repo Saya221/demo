@@ -26,3 +26,4 @@ Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
     - "app/controllers/concerns/api/v1/rescue_exceptions.rb"
+    - "app/models/concerns/partition.rb"
