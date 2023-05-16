@@ -67,14 +67,23 @@ class CreateUsersNotifications < ActiveRecord::Migration[7.0]
       DECLARE
         partition_name TEXT;
       BEGIN
-        partition_name := 'users_notifications_' || mod(crc32(NEW.user_id::text), 1000);
-        IF NOT EXISTS(SELECT relname FROM pg_class WHERE relname=partition_name) THEN
-          EXECUTE 'CREATE TABLE ' || partition_name || ' (LIKE users_notifications INCLUDING CONSTRAINTS)';
+        IF NEW.user_id IS NULL THEN
+          IF NOT EXISTS(SELECT relname FROM pg_class WHERE relname='users_notifications_0') THEN
+            EXECUTE 'CREATE TABLE users_notifications_0 (LIKE users_notifications INCLUDING CONSTRAINTS)';
+          END IF;
+
+          EXECUTE 'INSERT INTO users_notifications_0' || ' SELECT ($1).*'
+            USING NEW;
+        ELSE
+          partition_name := 'users_notifications_' || (mod(crc32(NEW.user_id::text), 1000) + 1);
+
+          IF NOT EXISTS(SELECT relname FROM pg_class WHERE relname=partition_name) THEN
+            EXECUTE 'CREATE TABLE ' || partition_name || ' (LIKE users_notifications INCLUDING CONSTRAINTS)';
+          END IF;
+
+          EXECUTE 'INSERT INTO ' || partition_name || ' SELECT ($1).*'
+            USING NEW;
         END IF;
-
-        EXECUTE 'INSERT INTO ' || partition_name || ' SELECT ($1).*'
-          USING NEW;
-
         RETURN NULL;
       END;
       $$ LANGUAGE plpgsql;

@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :users_notification do
+    id { SecureRandom.uuid }
     user
-    notification
+    association :notification, factory: :notification, strategy: :create
   end
 end
