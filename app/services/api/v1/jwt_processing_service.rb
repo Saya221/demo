@@ -39,6 +39,7 @@ class Api::V1::JwtProcessingService < Api::V1::BaseService
     @current_session = current_user&.user_sessions&.find_by session_token: decoded_token[0]["session_token"]
 
     raise Api::Error::ServiceExecuteFailed, :invalid_token unless current_user && current_session
+    raise Api::Error::UnauthorizedRequest, :inactive_user unless current_user.active?
   end
 
   def decoded_token

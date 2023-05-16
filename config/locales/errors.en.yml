@@ -44,6 +44,9 @@ en:
       unauthorized:
         code: 1201
         message: Please log in.
+        inactive_user:
+          code: 1250
+          message: Please verify email.
       not_allowed:
         code: 1202
-        message: You are not allow to do this action
+        message: You are not allow to do this action.
