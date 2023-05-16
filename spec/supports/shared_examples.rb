@@ -16,15 +16,15 @@ shared_examples :partition do
     it { expect(init_partitions[0]).to eq described_class.set_table_name }
   end
 
-  describe "#get_first_partition_table" do
+  describe "#get_first_partition" do
     context "with init partitions" do
       before { create_partitions(described_class, %i[uuid11 uuid578]) }
 
-      it { expect(init_partitions[0]).to eq described_class.get_first_partition_table }
+      it { expect(init_partitions[0]).to eq described_class.get_first_partition }
     end
 
     context "without init partitions" do
-      it { expect(described_class.table_name).to eq described_class.get_first_partition_table }
+      it { expect(described_class.table_name).to eq described_class.get_first_partition }
     end
   end
 
@@ -48,13 +48,13 @@ shared_examples :partition do
         end
       end
 
-      it { expect(described_class.union_all_partition_tables.size).to eq 2 }
+      it { expect(described_class.union_all_partitions.size).to eq 2 }
     end
 
     context "without init partitions" do
       it do
         expect(
-          described_class.union_all_partition_tables.table_name
+          described_class.union_all_partitions.table_name
         ).to eq underscore_class_name.pluralize.to_s
       end
     end

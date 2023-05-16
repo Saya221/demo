@@ -195,5 +195,18 @@ RSpec.describe Api::V1::SessionsController do
         expect(response_data[:errors][0][:code]).to eq 1500
       end
     end
+
+    context "when user inactive" do
+      before do
+        user.inactive!
+        login(user: user)
+        delete :logout
+      end
+
+      it do
+        expect(response_data[:success]).to eq false
+        expect(response_data[:errors][0][:code]).to eq 1250
+      end
+    end
   end
 end

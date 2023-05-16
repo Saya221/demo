@@ -58,6 +58,7 @@ module Api
         end
 
         def render_unauthorized_request_response(exception, status: :unauthorized)
+          exception = exception.try(:error) || exception
           render json: Api::Error::UnauthorizedRequest.new(exception).to_hash, status: status
         end
       end
