@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "sidekiq/testing"
 require "methods_helper"
 require "spec_helper"
 require "shoulda/matchers"
@@ -24,12 +25,15 @@ SimpleCov.start do
   add_group "Jobs", %w[app/jobs app/workers]
   add_group "Middlewares", "app/middlewares"
   add_group "Models", "app/models"
+  add_group "Modules", "app/modules"
   add_group "Serializers", "app/serializers"
   add_group "Services", "app/services"
   add_group "Libraries", "lib/"
 
   track_files "{app,lib}/**/*.rb"
 end
+
+Sidekiq::Testing.fake!
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
