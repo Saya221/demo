@@ -6,14 +6,15 @@ class SendEmailsJob < ApplicationJob
   def perform(args = {})
     @args = args.deep_symbolize_keys!
     @email_type = args[:email_type]
-    send_emails
+    @to = args[:to]
+    execute
   end
 
   private
 
-  attr_reader :args, :email_type, :jobs_log_path, :logger, :response
+  attr_reader :args, :email_type, :to, :jobs_log_path, :logger
 
-  def send_emails
+  def execute
     create_jobs_log
 
     File.open("#{jobs_log_path}/#{Time.current.to_i / Settings.epoch_time.day_in_secs}.log", "a") do |file|
@@ -29,16 +30,24 @@ class SendEmailsJob < ApplicationJob
 
   def processing
     logger.info "--Start send #{email_type}--"
-    @response = Api::V1::SendEmailsService.new(args.except(:email_type)).perform
-    response_logger_messages
+    send_emails_by_batch
     logger.info "--Finish--"
   rescue StandardError => e
     logger.info "Service errors: #{e.message}"
   end
 
-  def response_logger_messages
+  def send_emails_by_batch
+    to.each_slice(Settings.sendgrid.batch_size) do |emails|
+      response_logger_messages(
+        Api::V1::SendEmailsService.new(args.except(:email_type).merge!(to: emails)).perform,
+        emails
+      )
+    end
+  end
+
+  def response_logger_messages(response, emails)
     if response[:status_code]&.in?(Settings.sendgrid.success_code)
-      logger.info "--Send email(s) successfully"
+      logger.info "--Send email(s) #{emails} successfully"
     else
       message = "--SendGrid API headers-- \n#{response[:headers]}\n" \
                 "--SendGrid API status_code-- \n#{response[:status_code]}\n" \

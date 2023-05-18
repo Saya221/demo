@@ -28,23 +28,4 @@ module MethodsHelper
   def current_time
     @current_time ||= Time.current.to_i
   end
-
-  def create_partitions(described_class, uuids)
-    ActiveRecord::Base.connection.execute("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
-    iterator_create_partitions(described_class, uuids)
-  end
-
-  private
-
-  def iterator_create_partitions(described_class, uuids)
-    type = described_class.name.underscore.pluralize.to_sym
-    crc32_uuid = { uuid11: 11, uuid578: 578 }
-    uuids.each do |uuid|
-      ActiveRecord::Base.connection.execute(
-        <<-SQL
-          CREATE TABLE IF NOT EXISTS #{type}_#{crc32_uuid[uuid]} (LIKE #{type} INCLUDING CONSTRAINTS)
-        SQL
-      )
-    end
-  end
 end
