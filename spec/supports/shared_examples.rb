@@ -11,8 +11,6 @@ shared_examples :partition do
     ]
   end
 
-  before { described_class.table_name = underscore_class_name.pluralize }
-
   describe "#set_table_name" do
     let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user1) }
     let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
@@ -25,8 +23,10 @@ shared_examples :partition do
 
   describe "#get_first_partition" do
     context "with init partitions" do
-      let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user1) }
-      let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
+      before { described_class.reset_table_name }
+
+      let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user2) }
+      let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user1) }
 
       it { expect(init_partitions[0]).to eq described_class.get_first_partition }
     end
