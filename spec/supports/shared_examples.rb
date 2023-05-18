@@ -2,6 +2,8 @@
 
 shared_examples :partition do
   let(:underscore_class_name) { described_class.name.underscore }
+  let(:user1) { create :user, id: MethodsHelper::UUID578 }
+  let(:user2) { create :user, id: MethodsHelper::UUID11 }
   let(:init_partitions) do
     [
       "#{underscore_class_name.pluralize}_" + ((Zlib.crc32(MethodsHelper::UUID11) % 1000) + 1).to_s,
@@ -9,16 +11,22 @@ shared_examples :partition do
     ]
   end
 
-  describe "#set_table_name" do
-    before { create_partitions(described_class, %i[uuid11 uuid578]) }
+  before { described_class.table_name = underscore_class_name.pluralize }
 
-    it { expect(init_partitions[0]).to eq described_class.set_table_name(MethodsHelper::UUID11) }
-    it { expect(init_partitions[0]).to eq described_class.set_table_name }
+  describe "#set_table_name" do
+    let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user1) }
+    let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
+
+    it do
+      expect(init_partitions[1]).to eq described_class.set_table_name(MethodsHelper::UUID578)
+      expect(init_partitions[0]).to eq described_class.set_table_name
+    end
   end
 
   describe "#get_first_partition" do
     context "with init partitions" do
-      before { create_partitions(described_class, %i[uuid11 uuid578]) }
+      let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user1) }
+      let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
 
       it { expect(init_partitions[0]).to eq described_class.get_first_partition }
     end
@@ -30,23 +38,8 @@ shared_examples :partition do
 
   describe "#union_all_partitions" do
     context "with init partitions" do
-      let(:user1) { create :user, id: MethodsHelper::UUID578 }
-      let(:user2) { create :user, id: MethodsHelper::UUID11 }
-
-      let("#{described_class.name.underscore}1") { build(underscore_class_name, user: user1) }
-      let("#{described_class.name.underscore}2") { build(underscore_class_name, user: user2) }
-
-      before do
-        create_partitions(described_class, %i[uuid11 uuid578])
-
-        subject1 = send("#{underscore_class_name}1")
-        subject2 = send("#{underscore_class_name}2")
-
-        [subject1, subject2].each_with_index do |subject, index|
-          described_class.table_name = init_partitions[index]
-          subject.save
-        end
-      end
+      let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user1) }
+      let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
 
       it { expect(described_class.union_all_partitions.size).to eq 2 }
     end
