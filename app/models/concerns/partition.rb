@@ -6,6 +6,8 @@ module Partition
   class_methods do
     def set_table_name(user_id = nil)
       reset_table_name
+      # ActiveRecord does not cache table metadata, so if a table is dropped from the database,
+      # ActiveRecord will raise an error immediately when you try to access it.
       self.table_name =
         user_id.present? ? "#{table_name}_#{(Zlib.crc32(user_id) % 1000) + 1}" : get_first_partition
     end
@@ -44,13 +46,15 @@ module Partition
 
   included do
     before_validation :looking_for_partition
-    after_save { self.class.reset_table_name }
 
     def looking_for_partition
       table_name = calc_partition(user_id)
       ActiveRecord::Base.connection.execute(
         "CREATE TABLE IF NOT EXISTS #{table_name} (LIKE #{self.class.table_name} INCLUDING CONSTRAINTS)"
       )
+      # ActiveRecord caches table metadata for performance.
+      # It throws an error when accessing the database after a dropped table.
+      # The error is raised at the point of accessing the database, not immediately after dropping the table.
       self.class.table_name = table_name
     end
 
