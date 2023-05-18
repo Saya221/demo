@@ -9,6 +9,7 @@ jwt:
   token_type: Bearer
 sendgrid:
   success_code: ["200", "202", "204"]
+  batch_size: 100
 sidekiq:
   mailers:
     retry: 5
