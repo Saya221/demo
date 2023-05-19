@@ -49,8 +49,11 @@ module Partition
 
     def looking_for_partition
       table_name = calc_partition(user_id)
+      sanitized_table_name = ActiveRecord::Base.sanitize_sql(table_name)
+      sanitized_existing_table_name = ActiveRecord::Base.sanitize_sql(self.class.table_name)
       ActiveRecord::Base.connection.execute(
-        "CREATE TABLE IF NOT EXISTS #{table_name} (LIKE #{self.class.table_name} INCLUDING CONSTRAINTS)"
+        "CREATE TABLE IF NOT EXISTS #{sanitized_table_name}
+        (LIKE #{sanitized_existing_table_name} INCLUDING CONSTRAINTS)"
       )
       # ActiveRecord caches table metadata for performance.
       # It throws an error when accessing the database after a dropped table.
