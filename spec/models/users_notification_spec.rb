@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe UsersNotification, type: :model do
+  before { described_class.reset_table_name } # TODO: Reseach ActiveRecord's cache
+
   describe "relationships" do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:notification) }

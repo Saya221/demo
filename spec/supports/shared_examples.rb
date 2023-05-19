@@ -23,7 +23,6 @@ shared_examples :partition do
 
   describe "#get_first_partition" do
     context "with init partitions" do
-      before { described_class.reset_table_name }
 
       let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user2) }
       let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user1) }
@@ -48,7 +47,7 @@ shared_examples :partition do
       it do
         expect(
           described_class.union_all_partitions.table_name
-        ).to eq underscore_class_name.pluralize.to_s
+        ).to eq underscore_class_name.pluralize
       end
     end
   end
