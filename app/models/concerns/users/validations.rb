@@ -7,18 +7,18 @@ module Users
     included do
       validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-      validate :password_format
+      validate :password_format, if: :password_changed?
 
       private
 
       def password_format
-        return assign_password_encrypted if @password&.match?(Settings.user.password.regexp)
+        return true if @password&.match?(Settings.user.password.regexp)
 
         errors.add(:password, :wrong_format, minimum: Settings.user.password.minimum)
       end
 
-      def assign_password_encrypted
-        self.password_encrypted = BCrypt::Password.create(@password)
+      def password_changed?
+        new_record? || password_encrypted_changed?
       end
     end
   end
