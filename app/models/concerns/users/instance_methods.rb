@@ -6,12 +6,15 @@ module Users
 
     included do
       def password
-        return if @password.nil? && password_encrypted.nil?
+        return unless password_encrypted
 
         @password ||= BCrypt::Password.new password_encrypted
       end
 
-      attr_writer :password
+      def password=(new_password)
+        @password = new_password
+        self.password_encrypted = BCrypt::Password.create @password
+      end
     end
   end
 end

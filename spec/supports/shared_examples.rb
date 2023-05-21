@@ -23,7 +23,6 @@ shared_examples :partition do
 
   describe "#get_first_partition" do
     context "with init partitions" do
-
       let!("#{described_class.name.underscore}1") { create(underscore_class_name, user: user2) }
       let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user1) }
 

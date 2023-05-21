@@ -64,13 +64,13 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user, password: "Aa@123456") }
 
     context "#password" do
-      it { expect(user.password).to eq "Aa@123456" }
+      it { expect(BCrypt::Password.new(user.password_encrypted).is_password?("Aa@123456")).to eq true }
     end
 
     context "#password=" do
-      before { user.password = "Aa@12345678" }
+      before { user.update! password: "Aa@12345678" }
 
-      it { expect(user.password).to eq "Aa@12345678" }
+      it { expect(BCrypt::Password.new(user.password_encrypted).is_password?("Aa@12345678")).to eq true }
     end
   end
 end
