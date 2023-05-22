@@ -13,6 +13,8 @@ sendgrid:
 sidekiq:
   mailers:
     retry: 5
+  async_data:
+    retry: 3
 epoch_time:
   day_in_secs: 86400
 user:
