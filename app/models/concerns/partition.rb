@@ -52,8 +52,7 @@ module Partition
       sanitized_table_name = ActiveRecord::Base.sanitize_sql(table_name)
       sanitized_existing_table_name = ActiveRecord::Base.sanitize_sql(self.class.table_name)
       ActiveRecord::Base.connection.execute(
-        "CREATE TABLE IF NOT EXISTS #{sanitized_table_name}
-        (LIKE #{sanitized_existing_table_name} INCLUDING CONSTRAINTS)"
+        "CREATE TABLE IF NOT EXISTS #{sanitized_table_name} () INHERITS (#{sanitized_existing_table_name})"
       )
       # ActiveRecord caches table metadata for performance.
       # It throws an error when accessing the database after a dropped table.
