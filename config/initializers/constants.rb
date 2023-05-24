@@ -1,6 +1,10 @@
 class SidekiqQueue
   SEND_EMAILS = "send_emails".freeze
-  ASYNC_DATA = "async_data".freeze
+  CONSUMER = "consumer".freeze
+end
+
+class Action
+  UPDATE = :update!.freeze
 end
 
 UNAUTHORIZED_ERRORS = %i[inactive_user].freeze
