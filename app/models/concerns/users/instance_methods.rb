@@ -4,8 +4,11 @@ module Users
   module InstanceMethods
     extend ActiveSupport::Concern
 
+    NOT_ASYNC_ATTRS = %w[password_encrypted created_at updated_at].freeze
+
     included do
-      after_commit :async_data
+      after_validation :async_attrs
+      after_commit :async_job
 
       def password
         return unless password_encrypted
@@ -20,19 +23,16 @@ module Users
 
       private
 
-      def async_data
-        args = { action: set_action, attributes: attributes }.as_json
-        AsyncDataJob.perform_async(args)
+      def async_job
+        @action ||= Action::DESTROY
+        AsyncDataJob.perform_async({ id: id, action: @action, attributes: @async_attrs }.as_json)
       end
 
-      def set_action
-        if deleted_at
-          :destroy!
-        elsif new_record?
-          :create!
-        else
-          :update!
-        end
+      def async_attrs
+        @action = Action::UPDATE
+        attrs = changed - NOT_ASYNC_ATTRS
+        attrs = slice(attrs).transform_values! { |value| value.nil? ? "nil" : value }
+        @async_attrs = password_changed? ? attrs.merge(password: password) : attrs
       end
     end
   end
