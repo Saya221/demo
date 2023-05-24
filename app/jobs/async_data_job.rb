@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AsyncDataJob < ApplicationJob
-  sidekiq_options queue: SidekiqQueue::ASYNC_DATA, retry: Settings.sidekiq.async_data.retry
+  sidekiq_options queue: SidekiqQueue::PRODUCER, retry: Settings.sidekiq.producer.retry
 
   def perform(args = {})
     super
@@ -15,7 +15,7 @@ class AsyncDataJob < ApplicationJob
   attr_reader :action, :attributes
 
   def processing
-    logger.info "--Start execute #{action} on user #{attributes[:id]}--"
+    logger.info "--Start execute #{action} on user #{attributes.try(:[], :id)}--"
     public_messages
     logger.info "--Finish--"
   rescue StandardError => e
@@ -26,5 +26,6 @@ class AsyncDataJob < ApplicationJob
     producer = KAFKA.async_producer
     producer.produce(JSON.dump(args), topic: KafkaTopics::ASYNC_DATA)
     producer.deliver_messages
+    producer.shutdown
   end
 end
