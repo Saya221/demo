@@ -51,3 +51,21 @@ shared_examples :partition do
     end
   end
 end
+
+shared_examples :blank do |resource, field|
+  it do
+    expect(response_data[:success]).to eq false
+    expect(response_data[:errors][0][:resource]).to eq resource
+    expect(response_data[:errors][0][:field]).to eq field
+    expect(response_data[:errors][0][:code]).to eq 1003
+  end
+end
+
+shared_examples :unauthorized do |action|
+  action
+
+  it do
+    expect(response_data[:success]).to eq false
+    expect(response_data[:errors][0][:code]).to eq 1201
+  end
+end

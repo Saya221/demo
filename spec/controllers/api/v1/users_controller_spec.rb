@@ -29,12 +29,7 @@ RSpec.describe Api::V1::UsersController do
     end
 
     context "when user not login" do
-      before { get :show }
-
-      it do
-        expect(response_data[:success]).to eq false
-        expect(response_data[:errors][0][:code]).to eq 1201
-      end
+      it_behaves_like :unauthorized, before { get :show }
     end
   end
 end

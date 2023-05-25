@@ -31,7 +31,7 @@ module Users
       def async_attrs
         @action = Action::UPDATE
         attrs = changed - NOT_ASYNC_ATTRS
-        attrs = slice(attrs).transform_values! { |value| value.nil? ? "nil" : value }
+        attrs = slice(attrs).transform_values { |value| value.nil? ? "nil" : value }
         @async_attrs = password_changed? ? attrs.merge(password: password) : attrs
       end
     end
