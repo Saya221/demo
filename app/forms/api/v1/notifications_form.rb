@@ -2,7 +2,6 @@
 
 class Api::V1::NotificationsForm
   def initialize(params, current_user)
-    @params = params
     @topic = params[:topic]
     @content = params[:content].present? ? ERB::Util.h(params[:content]) : nil
     @current_user = current_user
@@ -19,5 +18,5 @@ class Api::V1::NotificationsForm
 
   private
 
-  attr_reader :params, :content, :topic, :current_user, :notification
+  attr_reader :content, :topic, :current_user, :notification
 end
