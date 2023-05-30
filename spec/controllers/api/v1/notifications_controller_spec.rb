@@ -58,7 +58,9 @@ RSpec.describe Api::V1::NotificationsController do
     end
 
     context "when user not login" do
-      it_behaves_like :unauthorized, before { post :create }
+      it_behaves_like :unauthorized do
+        before { post :create }
+      end
     end
   end
 end
