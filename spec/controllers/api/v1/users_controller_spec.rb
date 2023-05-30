@@ -29,7 +29,9 @@ RSpec.describe Api::V1::UsersController do
     end
 
     context "when user not login" do
-      it_behaves_like :unauthorized, before { get :show }
+      it_behaves_like :unauthorized do
+        before { get :show }
+      end
     end
   end
 end

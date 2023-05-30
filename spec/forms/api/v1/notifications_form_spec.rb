@@ -6,7 +6,7 @@ RSpec.describe Api::V1::NotificationsForm do
   let(:current_user) { create :user, role: :staff }
 
   describe "#create!" do
-    let(:params) {{ topic: topic,  content: content }}
+    let(:params) { { topic: topic, content: content } }
     let(:form) { described_class.new(params, current_user) }
 
     context "when created notifications successfully" do

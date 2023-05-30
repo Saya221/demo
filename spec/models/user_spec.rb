@@ -73,4 +73,8 @@ RSpec.describe User, type: :model do
       it { expect(BCrypt::Password.new(user.password_encrypted).is_password?("Aa@12345678")).to eq true }
     end
   end
+
+  describe "class methods" do
+    it_behaves_like :filter_and_sort
+  end
 end
