@@ -14,7 +14,7 @@ module Users
       def password_format
         return true if @password&.match?(Settings.user.password.regexp)
 
-        errors.add(:password, :wrong_format, minimum: Settings.user.password.minimum)
+        errors.add(:password, :wrong_format, at_least: Settings.user.password.at_least)
       end
 
       def password_changed?

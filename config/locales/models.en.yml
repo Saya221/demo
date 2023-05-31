@@ -5,4 +5,6 @@ en: # 1800 - 1900
         user:
           attributes:
             password:
-              wrong_format: "must have at least one character, one digit, one special character, and a minimum length of %{minimum}"
+              wrong_format: >
+                The password must contain at least one letter, one digit, one special character,
+                and be at least %{at_least} characters long
