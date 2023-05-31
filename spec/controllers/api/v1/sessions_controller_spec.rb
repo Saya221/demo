@@ -6,9 +6,9 @@ RSpec.describe Api::V1::SessionsController do
   let!(:user) { create :user, password: "Aa@123456", email: "test@gmail.com" }
 
   describe "POST #login" do
-    let(:params) { { user: { email: email, password: password } } }
+    let(:params) { { user: { email:, password: } } }
 
-    before { post :login, params: params }
+    before { post :login, params: }
 
     context "when login successfully" do
       let(:email) { "test@gmail.com" }
@@ -133,7 +133,7 @@ RSpec.describe Api::V1::SessionsController do
           exp: current_time
         }
       end
-      let(:user_session) { create :user_session, user: user }
+      let(:user_session) { create :user_session, user: }
 
       before do
         request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
@@ -158,7 +158,7 @@ RSpec.describe Api::V1::SessionsController do
           exp: current_time + Settings.jwt.expiration_time
         }
       end
-      let(:user_session) { create :user_session, user: user }
+      let(:user_session) { create :user_session, user: }
 
       before do
         request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
@@ -183,7 +183,7 @@ RSpec.describe Api::V1::SessionsController do
           exp: current_time + Settings.jwt.expiration_time
         }
       end
-      let(:user_session) { create :user_session, user: user }
+      let(:user_session) { create :user_session, user: }
 
       before do
         request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
@@ -199,7 +199,7 @@ RSpec.describe Api::V1::SessionsController do
     context "when user inactive" do
       before do
         user.inactive!
-        login(user: user)
+        login(user:)
         delete :logout
       end
 

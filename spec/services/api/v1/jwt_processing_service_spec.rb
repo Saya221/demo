@@ -5,9 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::JwtProcessingService do
   let(:current_session) { create :user_session }
   let(:access_token) do
-    described_class.new(current_user: current_session.user,
-                        current_session: current_session,
-                        current_time: current_time).encode
+    described_class.new(current_user: current_session.user, current_session:, current_time:).encode
   end
 
   describe "#encode" do
@@ -27,10 +25,10 @@ RSpec.describe Api::V1::JwtProcessingService do
   end
 
   describe "#decode" do
-    let(:response_data) { described_class.new(access_token: access_token).decode }
+    let(:response_data) { described_class.new(access_token:).decode }
     let(:expected_data) do
       {
-        current_session: current_session,
+        current_session:,
         current_user: current_session.user
       }
     end

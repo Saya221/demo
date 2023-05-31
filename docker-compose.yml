@@ -5,5 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

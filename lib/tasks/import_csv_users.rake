@@ -14,7 +14,7 @@ namespace :import_csv do
         users_params = {
           name: row["name"]&.strip,
           email: row["email"]&.strip,
-          password: password
+          password:
         }
 
         # Create user

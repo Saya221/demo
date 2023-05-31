@@ -9,11 +9,11 @@ class Api::V1::SessionsController < Api::V1::BaseController
     processing_request
     @current_time = Time.current.to_i
     @access_token =
-      Api::V1::JwtProcessingService.new(current_user: current_user,
-                                        current_session: current_session,
-                                        current_time: current_time).encode
+      Api::V1::JwtProcessingService.new(current_user:,
+                                        current_session:,
+                                        current_time:).encode
 
-    render_json token_info: token_info
+    render_json token_info:
   end
 
   def logout
@@ -40,7 +40,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
 
   def token_info
     {
-      access_token: access_token,
+      access_token:,
       token_type: Settings.jwt.token_type,
       expires_in: Settings.jwt.expiration_time,
       created_at: current_time,

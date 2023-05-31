@@ -7,9 +7,9 @@ RSpec.describe Api::V1::SignUpUsersController do
     let(:params) do
       {
         user: {
-          name: name,
-          email: email,
-          password: password
+          name:,
+          email:,
+          password:
         }
       }
     end
@@ -19,7 +19,7 @@ RSpec.describe Api::V1::SignUpUsersController do
       let(:email) { "test@gmail.com" }
       let(:password) { "Aa@123456" }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it { expect(response_data[:success]).to eq true }
     end
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::SignUpUsersController do
       let(:email) { "test2@@gmail.com" }
       let(:password) { "Aa@123456" }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::SignUpUsersController do
       let(:email) { "test2@gmail.com" }
       let(:password) { "Aa@123456" }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false
@@ -61,7 +61,7 @@ RSpec.describe Api::V1::SignUpUsersController do
       let(:email) { "" }
       let(:password) { "Aa@123456" }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false
@@ -81,7 +81,7 @@ RSpec.describe Api::V1::SignUpUsersController do
         }
       end
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false
@@ -100,7 +100,7 @@ RSpec.describe Api::V1::SignUpUsersController do
         }
       end
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false

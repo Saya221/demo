@@ -9,8 +9,8 @@ class Api::V1::NotificationsForm
 
   def create!
     ActiveRecord::Base.transaction do
-      @notification = Notification.create! topic: topic, content: content, creator: current_user
-      User.send(topic).each { |user| user.users_notifications.create! notification: notification }
+      @notification = Notification.create! topic:, content:, creator: current_user
+      User.send(topic).each { |user| user.users_notifications.create! notification: }
     end
 
     notification

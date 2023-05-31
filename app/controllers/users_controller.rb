@@ -33,17 +33,13 @@ class UsersController < ApplicationController
 
   def request_body
     {
-      user: {
-        name: name,
-        email: email,
-        password: password
-      }
+      user: { name:, email:, password: }
     }
   end
 
   def access_token
-    body = { user: { email: email, password: password } }
-    access_token = HTTParty.post combined(api_v1_login_path), body: body
+    body = { user: { email:, password: } }
+    access_token = HTTParty.post(combined(api_v1_login_path), body:)
     access_token["data"]["token_info"]["access_token"]
   end
 end
