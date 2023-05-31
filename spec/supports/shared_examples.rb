@@ -63,7 +63,7 @@ shared_examples :filter_and_sort do
 
   describe "#filter_by" do
     context "id" do
-      let(:conditions) { { id: MethodsHelper::UUID11} }
+      let(:conditions) { { id: MethodsHelper::UUID11 } }
 
       it { expect(described_class.filter_by(conditions)).to eq [subject1] }
     end
