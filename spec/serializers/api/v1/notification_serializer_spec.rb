@@ -9,7 +9,7 @@ RSpec.describe Api::V1::NotificationSerializer do
                   id: "f2cd0228-ff9e-4ca4-930c-e4f62d3e1aaf"
   end
   let(:notification) do
-    create :notification, creator: creator, content: "content", topic: :staff,
+    create :notification, creator:, content: "content", topic: :staff,
                           id: "a9b0245f-998a-4c6b-b0ba-5bb8cb19be84", created_at: time,
                           updated_at: time
   end

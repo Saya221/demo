@@ -39,7 +39,7 @@ class Api::V1::SendEmailsService < Api::V1::BaseService
     {
       from: { email: from },
       reply_to: { email: reply_to },
-      template_id: template_id,
+      template_id:,
       personalizations: [personalizations]
     }
   end
@@ -52,7 +52,7 @@ class Api::V1::SendEmailsService < Api::V1::BaseService
   end
 
   def array_to_hash(emails)
-    emails.map { |email| { email: email } }
+    emails.map { |email| { email: } }
   end
 
   def default_response

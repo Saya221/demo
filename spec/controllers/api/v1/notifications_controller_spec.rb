@@ -8,8 +8,8 @@ RSpec.describe Api::V1::NotificationsController do
   describe "POST #create" do
     let(:params) do
       {
-        topic: topic,
-        content: content
+        topic:,
+        content:
       }
     end
 
@@ -19,7 +19,7 @@ RSpec.describe Api::V1::NotificationsController do
 
       before do
         login user: current_user
-        post :create, params: params
+        post :create, params:
       end
 
       it do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::NotificationsController do
 
       before do
         login user: current_user
-        post :create, params: params
+        post :create, params:
       end
 
       it_behaves_like :blank, Notification.name.underscore, "content"
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::NotificationsController do
 
       before do
         login user: current_user
-        post :create, params: params
+        post :create, params:
       end
 
       it do

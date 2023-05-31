@@ -18,9 +18,9 @@ module MethodsHelper
     current_user = user || create(:user)
     current_session = create :user_session, user: current_user
     access_token =
-      Api::V1::JwtProcessingService.new(current_user: current_user,
-                                        current_session: current_session,
-                                        current_time: current_time).encode
+      Api::V1::JwtProcessingService.new(current_user:,
+                                        current_session:,
+                                        current_time:).encode
 
     request.headers.merge! "Jwt-Authorization": "Bearer #{access_token}"
   end

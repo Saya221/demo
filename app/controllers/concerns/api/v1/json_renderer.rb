@@ -63,12 +63,8 @@ module Api
           status = options.fetch :status, :ok
           data_serializer = DataSanitizer.new(object, options, api_version).sanitize
 
-          response_data = {
-            success: success,
-            data: data_serializer,
-            meta: meta
-          }
-          render json: response_data, status: status
+          response_data = { success:, data: data_serializer, meta: }
+          render json: response_data, status:
         end
       end
 

@@ -8,7 +8,7 @@ RSpec.describe Api::V1::SharedUrlSerializer do
   end
   let(:shared_url) do
     create :shared_url, id: "940c7259-0b38-45c0-96d2-56f3513868de", url: "test", description: "test",
-                        thumbnail_url: "test", movie_title: "test", user: user
+                        thumbnail_url: "test", movie_title: "test", user:
   end
 
   describe "serialize type is root" do

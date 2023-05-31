@@ -1,9 +1,16 @@
-FROM ubuntu:mantic
+FROM ruby:3.2.2-bullseye
 
-RUN apt update && apt install -y curl git libssl-dev libreadline-dev zlib1g-dev build-essential
-RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-installer | bash \
-  && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /root/.bashrc \
-  && echo 'eval "$(rbenv init -)"' >> /root/.bashrc \
-  && . /root/.bashrc \
-  && rbenv install 3.0.0 \
-  && rbenv global 3.0.0
+RUN apt update && apt-get install -y build-essential
+
+WORKDIR /usr/src/app
+
+COPY Gemfile Gemfile.lock ./
+
+RUN gem install bundler:2.4.10 && bundle lock --add-platform aarch64-linux-musl &&\
+  bundle install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]

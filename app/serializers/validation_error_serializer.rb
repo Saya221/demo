@@ -10,10 +10,10 @@ class ValidationErrorSerializer
 
   def serialize
     {
-      resource: resource,
-      field: field,
-      code: code,
-      message: message
+      resource:,
+      field:,
+      code:,
+      message:
     }
   end
 

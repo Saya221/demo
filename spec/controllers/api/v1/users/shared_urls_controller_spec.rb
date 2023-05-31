@@ -6,12 +6,12 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
   let(:user) { create :user }
 
   describe "GET #index" do
-    let!(:shared_url1) { create :shared_url, user: user }
-    let!(:shared_url2) { create :shared_url, user: user }
+    let!(:shared_url1) { create :shared_url, user: }
+    let!(:shared_url2) { create :shared_url, user: }
 
     context "when get list shared url successfully" do
       before do
-        login user: user
+        login(user:)
         get :index
       end
 
@@ -33,14 +33,14 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
   end
 
   describe "POST #create" do
-    let(:params) { { url: url } }
+    let(:params) { { url: } }
 
     context "when user shared url successfully" do
       let(:url) { "https://www.youtube.com/watch?v=TB3EtQQHh60" }
 
       before do
         login
-        post :create, params: params
+        post :create, params:
       end
 
       it { expect(response_data[:success]).to eq true }
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
 
       before do
         login
-        post :create, params: params
+        post :create, params:
       end
 
       it do
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
 
       before do
         login
-        post :create, params: params
+        post :create, params:
       end
 
       it do
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::Users::SharedUrlsController do
     context "when user not login" do
       let(:url) { "https://www.youtube.com/watch?v=TB3EtQQHh60" }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it do
         expect(response_data[:success]).to eq false

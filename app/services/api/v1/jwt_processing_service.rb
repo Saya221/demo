@@ -16,8 +16,8 @@ class Api::V1::JwtProcessingService < Api::V1::BaseService
     load_request_info
 
     {
-      current_session: current_session,
-      current_user: current_user
+      current_session:,
+      current_user:
     }
   end
 

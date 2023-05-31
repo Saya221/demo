@@ -10,7 +10,7 @@ module Api
 
       included do
         def paginate(relation)
-          options = { page: page, items: items, outset: params[:outset] }
+          options = { page:, items:, outset: params[:outset] }
           options[:count] = params[:count] if params[:count].to_i.positive?
 
           pagy_info, records = pagy relation, options

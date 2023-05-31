@@ -11,7 +11,7 @@ class RecordNotFoundSerializer
       success: false,
       errors: [
         {
-          resource: resource,
+          resource:,
           field: nil
         }.merge(details)
       ]

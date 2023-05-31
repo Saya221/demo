@@ -10,7 +10,7 @@ RSpec.describe Api::V1::UsersController do
 
     context "when get user information successfully" do
       before do
-        login user: user
+        login(user:)
         get :show
       end
 
