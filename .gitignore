@@ -4,6 +4,7 @@
 /storage/*
 !/storage/.keep
 
+keys
 tmp
 coverage
 

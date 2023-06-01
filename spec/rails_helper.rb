@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "sidekiq/testing"
 require "methods_helper"
 require "spec_helper"
 require "shoulda/matchers"
@@ -32,8 +31,6 @@ SimpleCov.start do
 
   track_files "{app,lib}/**/*.rb"
 end
-
-Sidekiq::Testing.fake!
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationJob
-  include Sidekiq::Job
-
   def perform(args = {})
     @args = args.deep_symbolize_keys!
     @args = args

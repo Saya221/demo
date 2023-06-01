@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::BaseController < ActionController::API
+class Api::V1::BaseController < ApplicationController
   include Api::V1::BaseConcern
 
   before_action :authenticate_request
