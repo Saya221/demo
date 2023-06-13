@@ -12,10 +12,6 @@ components:
 paths:
   # TODO: Write swagger
 
-  # Authentication
-  /api/v1/login:
-    $ref: paths/sessions.yaml#login
-
   # HealthChecks
   /api/v1/ping:
     $ref: paths/health_checks.yaml#ping

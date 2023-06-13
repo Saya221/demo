@@ -2,9 +2,3 @@ en: # 1800 - 1900
   activerecord:
     errors:
       models:
-        user:
-          attributes:
-            password:
-              wrong_format: >
-                The password must contain at least one letter, one digit, one special character,
-                and be at least %{at_least} characters long

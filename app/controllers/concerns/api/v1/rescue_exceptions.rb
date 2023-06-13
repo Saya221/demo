@@ -25,7 +25,6 @@ module Api
         rescue_from Api::Error::ActionNotAllowed, with: :render_action_not_allowed_response
         rescue_from(
           Api::Error::UnauthorizedRequest,
-          JWT::DecodeError,
           with: :render_unauthorized_request_response
         )
 

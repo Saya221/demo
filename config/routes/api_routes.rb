@@ -4,9 +4,6 @@ module ApiRoutes
 
       namespace :api, format: :json do
         namespace :v1 do
-          post :login, to: "sessions#login"
-          delete :logout, to: "sessions#logout"
-
           # HealthChecks
           get :ping, to: "health_checks#ping"
         end

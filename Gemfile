@@ -6,13 +6,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 gem "active_model_serializers"
-gem "bcrypt"
 gem "bootsnap", require: false
 gem "config"
 gem "figaro"
-gem "jwt"
 gem "pagy"
-gem "paranoia"
 gem "pg", "~> 1.5", ">= 1.5.2"
 gem "puma"
 gem "rack-cors"
