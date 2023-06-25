@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::SendEmailsService < Api::V1::BaseService
-  include SendGrid
-
-  # args = {
-  #   sender: { email: "renkyrou1708@gmail.com" },
-  #   reply_to: { email: "renkyrou@gmail.com" },
-  #   template_id: ENV["DEFAULT_TEMPLATE_ID"],
-  #   dynamic_template_data: {
-  #     name: "NGUYEN LE"
-  #   },
-  #   to: [ "le.hoang.nguyen.bedev@gmail.com", "nguyenlh.deploy.aws@gmail.com" ]
-  # }
-
   def initialize(args = {})
     @args = args
     @from = args[:sender][:email] || ENV["DEFAULT_EMAIL_FROM"]
@@ -57,9 +45,9 @@ class Api::V1::SendEmailsService < Api::V1::BaseService
 
   def default_response
     {
-      headers: nil,
-      status_code: nil,
-      body: nil
+      headers: {},
+      status_code: String.new,
+      body: String.new
     }
   end
 end
