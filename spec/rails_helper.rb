@@ -10,7 +10,7 @@ SimpleCov.start do
   enable_coverage :branch
 
   skip_files = %w[application_controller.rb sessions_controller.rb shared_urls_controller.rb
-                  static_pages_controller.rb users_controller.rb].freeze
+                  static_pages_controller.rb users_controller.rb]
   add_filter do |src_file|
     File.basename(src_file.filename).in? skip_files
   end
@@ -36,7 +36,7 @@ end
 Sidekiq::Testing.fake!
 
 ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
+require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 

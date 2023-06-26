@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 shared_examples :partition do
+  before do
+    stub_const("UUID11", "1aa5b0c5-4d4c-4c32-bd4a-392462dcaca0") # Zlib.crc32(UUID_10) % 1000 + 1 = 11
+    stub_const("UUID578", "b53777ec-35bf-4849-9470-bd9b7b335067") # Zlib.crc32(UUID_577) % 1000 + 1 = 578
+  end
+
   let(:underscore_class_name) { described_class.name.underscore }
-  let(:user1) { create :user, id: MethodsHelper::UUID578 }
-  let(:user2) { create :user, id: MethodsHelper::UUID11 }
+  let(:user1) { create :user, id: UUID578 }
+  let(:user2) { create :user, id: UUID11 }
   let(:init_partitions) do
     [
-      "#{underscore_class_name.pluralize}_" + ((Zlib.crc32(MethodsHelper::UUID11) % 1000) + 1).to_s,
-      "#{underscore_class_name.pluralize}_" + ((Zlib.crc32(MethodsHelper::UUID578) % 1000) + 1).to_s
+      "#{underscore_class_name.pluralize}_" + ((Zlib.crc32(UUID11) % 1000) + 1).to_s,
+      "#{underscore_class_name.pluralize}_" + ((Zlib.crc32(UUID578) % 1000) + 1).to_s
     ]
   end
 
@@ -16,7 +21,7 @@ shared_examples :partition do
     let!("#{described_class.name.underscore}2") { create(underscore_class_name, user: user2) }
 
     it do
-      expect(init_partitions[1]).to eq described_class.set_table_name(MethodsHelper::UUID578)
+      expect(init_partitions[1]).to eq described_class.set_table_name(UUID578)
       expect(init_partitions[0]).to eq described_class.set_table_name
     end
   end
@@ -53,17 +58,22 @@ shared_examples :partition do
 end
 
 shared_examples :filter_and_sort do
+  before do
+    stub_const("UUID11", "1aa5b0c5-4d4c-4c32-bd4a-392462dcaca0") # Zlib.crc32(UUID_10) % 1000 + 1 = 11
+    stub_const("UUID578", "b53777ec-35bf-4849-9470-bd9b7b335067") # Zlib.crc32(UUID_577) % 1000 + 1 = 578
+  end
+
   let(:underscore_class_name) { described_class.name.underscore }
 
-  let!("#{described_class.name.underscore}1") { create(underscore_class_name, id: MethodsHelper::UUID11) }
-  let!("#{described_class.name.underscore}2") { create(underscore_class_name, id: MethodsHelper::UUID578) }
+  let!("#{described_class.name.underscore}1") { create(underscore_class_name, id: UUID11) }
+  let!("#{described_class.name.underscore}2") { create(underscore_class_name, id: UUID578) }
 
   let(:subject1) { send("#{underscore_class_name}1") }
   let(:subject2) { send("#{underscore_class_name}2") }
 
   describe "#filter_by" do
     context "id" do
-      let(:conditions) { { id: MethodsHelper::UUID11 } }
+      let(:conditions) { { id: UUID11 } }
 
       it { expect(described_class.filter_by(conditions)).to eq [subject1] }
     end

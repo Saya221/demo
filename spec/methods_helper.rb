@@ -3,9 +3,6 @@
 require "factory_bot_rails"
 
 module MethodsHelper
-  UUID11 = "1aa5b0c5-4d4c-4c32-bd4a-392462dcaca0" # Zlib.crc32(UUID_10) % 1000 + 1 = 11
-  UUID578 = "b53777ec-35bf-4849-9470-bd9b7b335067" # Zlib.crc32(UUID_577) % 1000 + 1 = 578
-
   def response_data
     JSON.parse response.body, symbolize_names: true
   end
