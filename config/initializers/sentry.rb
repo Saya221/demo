@@ -2,7 +2,7 @@ Sentry.init do |config|
   config.dsn = ENV["SENTRY_DSN"]
   config.breadcrumbs_logger = [:sentry_logger, :http_logger]
 
-  config.enabled_environments = ENV["SENTRY_ENABLED_ENVIRONMENTS"].split(",")
+  config.enabled_environments = ENV.fetch("SENTRY_ENABLED_ENVIRONMENTS", "development").split(",")
   config.environment = Rails.env
 
   config.send_default_pii = true
