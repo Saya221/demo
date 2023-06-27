@@ -75,7 +75,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when missing Jwt-Authorization type" do
       before do
-        request.headers.merge! "Jwt-Authorization": "asdklj.asjdlkasd.ajsdlk"
+        request.headers[:"Jwt-Authorization"] = "asdklj.asjdlkasd.ajsdlk"
         delete :logout
       end
 
@@ -87,7 +87,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when missing Jwt-Authorization token" do
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer"
+        request.headers[:"Jwt-Authorization"] = "Bearer"
         delete :logout
       end
 
@@ -99,7 +99,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when invalid segment headers" do
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer qwoue.qwe"
+        request.headers[:"Jwt-Authorization"] = "Bearer qwoue.qwe"
         delete :logout
       end
 
@@ -111,7 +111,7 @@ RSpec.describe Api::V1::SessionsController do
 
     context "when invalid signature" do
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer qwoue.qwe.qoweuo"
+        request.headers[:"Jwt-Authorization"] = "Bearer qwoue.qwe.qoweuo"
         delete :logout
       end
 
@@ -136,7 +136,7 @@ RSpec.describe Api::V1::SessionsController do
       let(:user_session) { create :user_session, user: }
 
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
+        request.headers[:"Jwt-Authorization"] = "Bearer #{token}"
         delete :logout
       end
 
@@ -161,7 +161,7 @@ RSpec.describe Api::V1::SessionsController do
       let(:user_session) { create :user_session, user: }
 
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
+        request.headers[:"Jwt-Authorization"] = "Bearer #{token}"
         delete :logout
       end
 
@@ -186,7 +186,7 @@ RSpec.describe Api::V1::SessionsController do
       let(:user_session) { create :user_session, user: }
 
       before do
-        request.headers.merge! "Jwt-Authorization": "Bearer #{token}"
+        request.headers[:"Jwt-Authorization"] = "Bearer #{token}"
         delete :logout
       end
 

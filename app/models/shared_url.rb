@@ -5,5 +5,5 @@ class SharedUrl < ApplicationRecord
 
   validates :url, presence: true
 
-  scope :lastest, -> { order updated_at: :desc }
+  scope :latest, -> { order updated_at: :desc }
 end

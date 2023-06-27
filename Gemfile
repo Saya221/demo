@@ -44,6 +44,7 @@ group :development do
   gem "brakeman", require: false
   gem "listen"
   gem "rubocop", require: false
+  gem "rubocop-performance", require: false
   gem "spring"
   gem "spring-watcher-listen"
 end

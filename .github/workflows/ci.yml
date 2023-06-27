@@ -1,0 +1,124 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+env:
+  RUBY_VERSION: 3.2.2
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: demo_test
+
+name: "Github Action CI"
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "master"
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Add x86_64-linux platform
+        run: bundle lock --add-platform x86_64-linux
+
+      - name: Install gems
+        run: |
+          bundle config --local path /home/runner/work/demo/demo/vendor/bundle
+          bundle config --local deployment true
+          bundle config --local cache_all true
+          bundle install --jobs 4 --retry 3
+
+      - name: Retrieve ENV from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+        run: aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/application.yml /home/runner/work/demo/demo/config/application.yml
+
+      - name: Install PostgreSQL Extension
+        run: |
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -U ${{ env.POSTGRES_USER }} -h localhost -p 5432 -c 'CREATE DATABASE ${{ env.POSTGRES_DB }};'
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} -h localhost -p 5432 -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+          PGPASSWORD=${{ env.POSTGRES_PASSWORD }} psql -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} -h localhost -p 5432 -c 'CREATE EXTENSION IF NOT EXISTS "pgcrypto";'
+
+      - name: Set up database schema
+        run: |
+          bin/rails db:migrate RAILS_ENV=test
+
+      - name: Run tests
+        run: bundle exec rspec spec/*
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+
+  rubocop-audit-brakeman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Add x86_64-linux platform
+        run: bundle lock --add-platform x86_64-linux
+
+      - name: Install gems
+        run: |
+          bundle config --local path /home/runner/work/demo/demo/vendor/bundle
+          bundle config --local deployment true
+          bundle config --local cache_all true
+          bundle install --jobs 4 --retry 3
+
+      - name: Retrieve rubocop from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+        run: aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/rubocop.yml /home/runner/work/demo/demo/config/rubocop.yml
+
+      - name: Rubocop
+        run: |
+          gem install rubocop -v 1.51.0
+          bundle exec rubocop --parallel --config /home/runner/work/demo/demo/config/rubocop.yml
+
+      - name: Security audit dependencies
+        run: |
+          gem install bundle-audit
+          bundler-audit --update
+
+      - name: Security audit application code
+        run: |
+          gem install brakeman
+          brakeman -q -w2

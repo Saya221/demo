@@ -12,7 +12,7 @@ class Api::V1::NotificationsController < Api::V1::BaseController
   private
 
   def check_topic_params
-    return if Notification.topics.keys.include?(params[:topic])
+    return if Notification.topics.key?(params[:topic])
 
     raise Api::Error::ControllerRuntimeError, :invalid_topic
   end

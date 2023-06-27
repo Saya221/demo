@@ -4,6 +4,10 @@ AllCops:
     - "bin/*"
     - "config/**/*"
     - "db/**/*"
+    - "vendor/bundle/**/*"
+
+# require other extensions
+require: rubocop-performance
 
 # Changed default format
 Style/StringLiterals:

@@ -46,8 +46,8 @@ class Api::V1::SendEmailsService < Api::V1::BaseService
   def default_response
     {
       headers: {},
-      status_code: String.new,
-      body: String.new
+      status_code: +"",
+      body: +""
     }
   end
 end

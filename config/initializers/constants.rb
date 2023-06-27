@@ -4,8 +4,8 @@ class SidekiqQueue
 end
 
 class Action
-  UPDATE = :update!.freeze
-  DESTROY = :destroy!.freeze
+  UPDATE = :update!
+  DESTROY = :destroy!
 end
 
 UNAUTHORIZED_ERRORS = %i[inactive_user].freeze
