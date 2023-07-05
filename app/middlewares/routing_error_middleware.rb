@@ -30,7 +30,7 @@ class RoutingErrorMiddleware
   def routing_error_response
     {
       success: false,
-      errors: [I18n.t("errors.route.not_found")]
+      errors: [I18n.t(:not_found, scope: %i[errors route])]
     }
   end
 end
