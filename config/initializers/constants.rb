@@ -1,3 +1,7 @@
+class App
+  NAME = Rails.application.class.module_parent_name.downcase.freeze
+end
+
 class SidekiqQueue
   SEND_EMAILS = "send_emails".freeze
   PRODUCER = "producer".freeze

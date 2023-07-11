@@ -5,10 +5,15 @@
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
 env:
+  APP_NAME: demo
   RUBY_VERSION: 3.2.2
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: demo_test
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
 
 name: "Github Action CI"
 on:
@@ -22,6 +27,11 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rspec_type:
+          [controllers, forms, jobs, middlewares, models, serializers, services]
 
     services:
       postgres:
@@ -37,27 +47,29 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - name: Add x86_64-linux platform
-        run: bundle lock --add-platform x86_64-linux
+      - name: caching dependencies
+        uses: actions/cache@v3.3.1
+        id: gems
+        with:
+          path: |
+            **/vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
 
-      - name: Install gems
+      - name: Install dependencies
         run: |
-          bundle config --local path /home/runner/work/demo/demo/vendor/bundle
+          bundle lock --add-platform x86_64-linux
+          bundle config --local path vendor/bundle
           bundle config --local deployment true
           bundle config --local cache_all true
           bundle install --jobs 4 --retry 3
 
       - name: Retrieve ENV from S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-        run: aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/application.yml /home/runner/work/demo/demo/config/application.yml
+        run: |
+          aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/application.yml config/application.yml
 
       - name: Install PostgreSQL Extension
         run: |
@@ -70,14 +82,14 @@ jobs:
           bin/rails db:migrate RAILS_ENV=test
 
       - name: Run tests
-        run: bundle exec rspec spec/*
+        run: bundle exec rspec spec/${{ matrix.rspec_type }}/*
 
-      - name: Upload coverage results
-        uses: actions/upload-artifact@master
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage
+      # - name: Upload coverage results
+      #   uses: actions/upload-artifact@master
+      #   if: always()
+      #   with:
+      #     name: coverage-report
+      #     path: coverage
 
   rubocop-audit-brakeman:
     runs-on: ubuntu-latest
@@ -86,32 +98,34 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - name: Add x86_64-linux platform
-        run: bundle lock --add-platform x86_64-linux
+      - name: caching dependencies
+        uses: actions/cache@v3.3.1
+        id: gems
+        with:
+          path: |
+            **/vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
 
-      - name: Install gems
+      - name: Install dependencies
         run: |
-          bundle config --local path /home/runner/work/demo/demo/vendor/bundle
+          bundle lock --add-platform x86_64-linux
+          bundle config --local path vendor/bundle
           bundle config --local deployment true
           bundle config --local cache_all true
           bundle install --jobs 4 --retry 3
 
-      - name: Retrieve rubocop from S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-        run: aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/rubocop.yml /home/runner/work/demo/demo/config/rubocop.yml
+      - name: Retrieve rubocop config from S3
+        run: |
+          aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/rubocop.yml config/rubocop.yml
 
       - name: Rubocop
         run: |
           gem install rubocop -v 1.51.0
-          bundle exec rubocop --parallel --config /home/runner/work/demo/demo/config/rubocop.yml
+          bundle exec rubocop --parallel --config config/rubocop.yml
 
       - name: Security audit dependencies
         run: |
