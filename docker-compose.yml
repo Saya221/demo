@@ -8,3 +8,25 @@ services:
     ports:
       - "3000:3000"
     restart: unless-stopped
+
+  redis:
+    image: redis:7.0.12
+    ports:
+      - "6379:6379"
+    command: redis-server
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  sidekiq:
+    depends_on:
+      - "redis"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  redis-data:
