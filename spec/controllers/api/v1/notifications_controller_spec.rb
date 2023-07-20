@@ -39,7 +39,7 @@ RSpec.describe Api::V1::NotificationsController do
         post :create, params:
       end
 
-      it_behaves_like :blank, Notification.name.underscore, "content"
+      it_behaves_like "blank", Notification.name.underscore, "content"
     end
 
     context "when invalid topic" do
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::NotificationsController do
     end
 
     context "when user not login" do
-      it_behaves_like :unauthorized do
+      it_behaves_like "unauthorized" do
         before { post :create }
       end
     end

@@ -11,8 +11,8 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
-    context "email" do
-      context ".uniqueness" do
+    context "with email" do
+      describe ".uniqueness" do
         let!(:user) { create(:user, email: "uniqueness@email.com") }
         let(:invalid1) { build(:user, email: "uniqueness@email.com") }
         let(:invalid2) { build(:user, email: "UniquEneSs@email.com") }
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
         end
       end
 
-      context ".format" do
+      describe ".format" do
         allow_email = ["allow@gmail.com"].freeze
         disallow_email = ["disallow@@gmail.com"].freeze
 
@@ -37,8 +37,8 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "password" do
-      context ".password_format" do
+    context "with password" do
+      describe ".password_format" do
         allow_password = ["Aa@123456"].freeze
         disallow_password = [
           nil,
@@ -63,11 +63,11 @@ RSpec.describe User, type: :model do
   describe "methods" do
     let(:user) { create(:user, password: "Aa@123456") }
 
-    context "#password" do
+    describe "#password" do
       it { expect(BCrypt::Password.new(user.password_encrypted).is_password?("Aa@123456")).to eq true }
     end
 
-    context "#password=" do
+    describe "#password=" do
       before { user.update! password: "Aa@12345678" }
 
       it { expect(BCrypt::Password.new(user.password_encrypted).is_password?("Aa@12345678")).to eq true }
@@ -75,6 +75,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "class methods" do
-    it_behaves_like :filter_and_sort
+    it_behaves_like "filter and sort"
   end
 end

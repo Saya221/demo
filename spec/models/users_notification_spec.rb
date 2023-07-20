@@ -11,8 +11,8 @@ RSpec.describe UsersNotification, type: :model do
   end
 
   describe "validations" do
-    context "user_id" do
-      context ".uniqueness" do
+    context "with user_id" do
+      describe ".uniqueness" do
         let!(:users_notification) { create(:users_notification) }
         let(:invalid) do
           build :users_notification, user: users_notification.user,
@@ -25,6 +25,6 @@ RSpec.describe UsersNotification, type: :model do
   end
 
   describe "class methods" do
-    it_behaves_like :partition
+    it_behaves_like "partition"
   end
 end

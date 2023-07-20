@@ -15,7 +15,7 @@ RSpec.describe SendEmailsJob, type: :job do
     end
 
     it do
-      expect { SendEmailsJob.perform_async(args) }
+      expect { described_class.perform_async(args) }
         .to change { Sidekiq::Queues[SidekiqQueue::SEND_EMAILS].size }.by 1
     end
   end

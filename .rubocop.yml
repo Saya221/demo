@@ -7,7 +7,10 @@ AllCops:
     - "vendor/bundle/**/*"
 
 # require other extensions
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-factory_bot
 
 # Changed default format
 Style/StringLiterals:
@@ -23,6 +26,14 @@ Naming/AccessorMethodName:
 Lint/MissingSuper:
   Enabled: false
 Style/ClassAndModuleChildren:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 # Disabled for RSpec

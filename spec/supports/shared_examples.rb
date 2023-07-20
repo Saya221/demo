@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples :partition do
+shared_examples "partition" do
   before do
     stub_const("UUID11", "1aa5b0c5-4d4c-4c32-bd4a-392462dcaca0") # Zlib.crc32(UUID_10) % 1000 + 1 = 11
     stub_const("UUID578", "b53777ec-35bf-4849-9470-bd9b7b335067") # Zlib.crc32(UUID_577) % 1000 + 1 = 578
@@ -57,7 +57,7 @@ shared_examples :partition do
   end
 end
 
-shared_examples :filter_and_sort do
+shared_examples "filter and sort" do
   before do
     stub_const("UUID11", "1aa5b0c5-4d4c-4c32-bd4a-392462dcaca0") # Zlib.crc32(UUID_10) % 1000 + 1 = 11
     stub_const("UUID578", "b53777ec-35bf-4849-9470-bd9b7b335067") # Zlib.crc32(UUID_577) % 1000 + 1 = 578
@@ -72,13 +72,13 @@ shared_examples :filter_and_sort do
   let(:subject2) { send("#{underscore_class_name}2") }
 
   describe "#filter_by" do
-    context "id" do
+    context "with id" do
       let(:conditions) { { id: UUID11 } }
 
       it { expect(described_class.filter_by(conditions)).to eq [subject1] }
     end
 
-    context "default" do
+    context "with default" do
       let(:conditions) {}
 
       it { expect(described_class.filter_by(conditions)).to eq [subject1, subject2] }
@@ -86,20 +86,20 @@ shared_examples :filter_and_sort do
   end
 
   describe "#sort_by" do
-    context "id" do
+    context "with id" do
       let(:conditions) { { id: :asc } }
 
       it { expect(described_class.sort_by(conditions)).to eq [subject1, subject2] }
     end
 
-    context "default" do
-      context "conditions is Hash" do
+    context "with default" do
+      context "when conditions is Hash" do
         let(:conditions) { {} }
 
         it { expect(described_class.sort_by(conditions)).to eq [subject2, subject1] }
       end
 
-      context "conditions is nil" do
+      context "when conditions is nil" do
         let(:conditions) {}
 
         it { expect(described_class.sort_by(conditions)).to eq [subject2, subject1] }
@@ -108,7 +108,7 @@ shared_examples :filter_and_sort do
   end
 end
 
-shared_examples :blank do |resource, field|
+shared_examples "blank" do |resource, field|
   it do
     expect(response_data[:success]).to eq false
     expect(response_data[:errors][0][:resource]).to eq resource
@@ -117,7 +117,7 @@ shared_examples :blank do |resource, field|
   end
 end
 
-shared_examples :unauthorized do |action|
+shared_examples "unauthorized" do |action|
   before { action }
 
   it do
