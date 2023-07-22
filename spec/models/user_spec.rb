@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  describe "relationships" do
+  describe "associations" do
     it { is_expected.to have_many(:user_sessions).dependent(:destroy) }
     it { is_expected.to have_many(:shared_urls).dependent(:destroy) }
     it { is_expected.to have_many(:users_notifications).dependent(:destroy) }

@@ -3,5 +3,6 @@
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
 
+  # Concerns
   include FilterAndSort
 end

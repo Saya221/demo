@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe SharedUrl, type: :model do
-  describe "relationships" do
+  describe "associations" do
     it { is_expected.to belong_to(:user) }
   end
 

@@ -10,9 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_12_081055) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_22_082748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "address"
+    t.string "description"
+    t.string "name"
+    t.string "phone_number"
+    t.uuid "creator_id"
+    t.uuid "last_updater_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_clients_on_creator_id"
+    t.index ["last_updater_id"], name: "index_clients_on_last_updater_id"
+  end
+
+  create_table "clients_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id"
+    t.uuid "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_clients_jobs_on_client_id"
+    t.index ["job_id"], name: "index_clients_jobs_on_job_id"
+  end
+
+  create_table "jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "description"
+    t.string "name"
+    t.integer "salary"
+    t.integer "salary_currency", default: 0
+    t.integer "working_hours"
+    t.uuid "creator_id"
+    t.uuid "last_updater_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_jobs_on_creator_id"
+    t.index ["last_updater_id"], name: "index_jobs_on_last_updater_id"
+  end
 
   create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "topic", default: 1
