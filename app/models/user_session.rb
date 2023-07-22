@@ -3,8 +3,10 @@
 class UserSession < ApplicationRecord
   acts_as_paranoid
 
+  # Callbacks
   before_create :gen_uniq_session_token
 
+  # Associations
   belongs_to :user
 
   private

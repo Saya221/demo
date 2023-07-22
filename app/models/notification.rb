@@ -3,9 +3,12 @@
 class Notification < ApplicationRecord
   acts_as_paranoid
 
-  enum topic: %i[admin staff]
+  # Associations
+  belongs_to :creator, class_name: User.name
 
-  belongs_to :creator, foreign_key: :creator_id, class_name: User.name
-
+  # Validations
   validates :content, presence: true
+
+  # Enumerations
+  enum topic: %i[admin staff]
 end

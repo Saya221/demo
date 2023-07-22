@@ -9,6 +9,7 @@ gem "active_model_serializers"
 gem "bcrypt"
 gem "bootsnap", require: false
 gem "bootstrap-sass"
+gem "caxlsx_rails", "~> 0.6.3"
 gem "config"
 gem "fcm", "~> 1.0", ">= 1.0.8"
 gem "figaro"
