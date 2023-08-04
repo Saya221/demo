@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# frozen_literal_string: true
-
 class Job < ApplicationRecord
+  acts_as_paranoid
+
   # Associations
   belongs_to :creator, class_name: User.name
   belongs_to :last_updater, class_name: User.name
