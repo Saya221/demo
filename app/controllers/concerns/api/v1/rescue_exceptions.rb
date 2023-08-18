@@ -32,7 +32,7 @@ module Api
         protected
 
         def render_invalid_params_response(status: :bad_request)
-          error = Api::BaseError.new I18n.t("errors.params.invalid")
+          error = Api::BaseError.new I18n.t(:invalid, scope: %i[errors params])
           render json: error.to_hash, status:
         end
 
@@ -41,7 +41,7 @@ module Api
         end
 
         def render_existing_resource_response(_exception, status: :bad_request)
-          error = Api::BaseError.new I18n.t("errors.active_record.not_unique")
+          error = Api::BaseError.new I18n.t(:not_unique, scope: %i[errors active_record])
           render json: error.to_hash, status:
         end
 
