@@ -31,6 +31,7 @@ gem "sentry-rails", "~> 5.9"
 gem "sentry-ruby", "~> 5.9"
 gem "sentry-sidekiq", "~> 5.9"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
+gem "sidekiq-scheduler", "~> 5.0", ">= 5.0.3"
 
 group :development, :test do
   gem "factory_bot_rails"
