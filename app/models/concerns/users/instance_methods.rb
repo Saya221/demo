@@ -24,12 +24,12 @@ module Users
       private
 
       def async_job
-        @action ||= Action::DESTROY
+        @action ||= ACTION::DESTROY
         AsyncDataJob.perform_async({ id:, action: @action, attributes: @async_attrs }.as_json)
       end
 
       def async_attrs
-        @action = Action::UPDATE
+        @action = ACTION::UPDATE
         attrs = changed - NOT_ASYNC_ATTRS
         attrs = slice(attrs).transform_values { |value| value.nil? ? "nil" : value }
         @async_attrs = password_changed? ? attrs.merge(password:) : attrs

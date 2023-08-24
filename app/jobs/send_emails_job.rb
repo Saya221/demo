@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SendEmailsJob < ApplicationJob
-  sidekiq_options queue: SidekiqQueue::SEND_EMAILS, retry: Settings.sidekiq.mailers.retry
+  sidekiq_options queue: SIDEKIQ_QUEUES::SEND_EMAILS, retry: Settings.sidekiq.mailers.retry
 
   def perform(args = {})
     super
