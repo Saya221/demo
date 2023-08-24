@@ -3,3 +3,10 @@
   - default
   - mailers
 :logfile: ./log/sidekiq-%Y-%m-%d.log
+
+:scheduler:
+  :dynamic: true # <if true the schedule can be modified in runtime [false by default]>
+  # :dynamic_every: <if dynamic is true, the schedule is reloaded every interval [5s by default]>
+  # :enabled: <enables scheduler if true [true by default]>
+  # :listened_queues_only: <push jobs whose queue is being listened by sidekiq [false by default]>
+  # :rufus_scheduler_options: <Set custom options for rufus scheduler, like max_work_threads [{} by default]>
