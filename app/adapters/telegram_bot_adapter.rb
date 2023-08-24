@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TelegramBotAdapter < BaseAdapter
-
   def initialize(args = {})
     @action = args[:action] || :get
     @endpoint = args[:endpoint] || TELEGRAM::END_POINTS::GET_UPDATES
