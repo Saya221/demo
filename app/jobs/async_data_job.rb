@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AsyncDataJob < ApplicationJob
-  sidekiq_options queue: SidekiqQueue::PRODUCER, retry: Settings.sidekiq.producer.retry
+  sidekiq_options queue: SIDEKIQ_QUEUES::PRODUCER, retry: Settings.sidekiq.producer.retry
 
   def perform(args = {})
     super

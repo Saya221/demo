@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Api::V1::JwtProcessingService < Api::V1::BaseService
-  def initialize(attributes = {})
-    @current_user = attributes[:current_user]
-    @current_session = attributes[:current_session]
-    @current_time = attributes[:current_time]
-    @access_token = attributes[:access_token]
+  def initialize(args = {})
+    @current_user = args[:current_user]
+    @current_session = args[:current_session]
+    @current_time = args[:current_time]
+    @access_token = args[:access_token]
   end
 
   def encode
@@ -15,10 +15,7 @@ class Api::V1::JwtProcessingService < Api::V1::BaseService
   def decode
     load_request_info
 
-    {
-      current_session:,
-      current_user:
-    }
+    { current_session:, current_user: }
   end
 
   private
