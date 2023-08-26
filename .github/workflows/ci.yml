@@ -102,7 +102,7 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - name: caching dependencies
+      - name: Caching dependencies
         uses: actions/cache@v3.3.1
         id: gems
         with:

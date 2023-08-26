@@ -19,7 +19,7 @@ Bundler.require(*Rails.groups)
 module Demo
   class Application < Rails::Application
     config.active_job.queue_adapter = :sidekiq
-    config.eager_load_paths += %W( #{config.root}/lib #{config.root}/config/routes )
+    config.eager_load_paths += %W[#{config.root}/lib #{config.root}/config/routes]
     config.load_defaults 7.0
     config.middleware.use RoutingErrorMiddleware
     config.time_zone = "Hanoi"

@@ -19,6 +19,7 @@ Layout/LineLength:
   Max: 110
 
 # Disabled
+  # Styles
 Style/Documentation:
   Enabled: false
 Naming/AccessorMethodName:
@@ -27,6 +28,8 @@ Lint/MissingSuper:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+
+  # RSpec
 RSpec/MultipleExpectations:
   Enabled: false
 RSpec/LetSetup:
@@ -36,7 +39,7 @@ RSpec/NestedGroups:
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
-# Disabled for RSpec
+# Disabled common
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
