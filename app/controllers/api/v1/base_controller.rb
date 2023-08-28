@@ -21,7 +21,7 @@ class Api::V1::BaseController < ActionController::API
     raise Api::Error::UnauthorizedRequest, nil unless header.is_a?(String)
 
     jwt_authorization = header.split
-    valid_token_type = jwt_authorization.first == "Bearer"
+    valid_token_type = jwt_authorization.first == Settings.jwt.token_type
     jwt_token = jwt_authorization.last
     raise Api::Error::UnauthorizedRequest, nil unless valid_token_type && jwt_token.present?
 
