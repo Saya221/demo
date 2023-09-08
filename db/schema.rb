@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_22_082748) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_28_102803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_22_082748) do
     t.index ["creator_id"], name: "index_notifications_on_creator_id"
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.uuid "creator_id"
+    t.uuid "last_updater_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_roles_on_creator_id"
+    t.index ["last_updater_id"], name: "index_roles_on_last_updater_id"
+  end
+
+  create_table "roles_permissions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shared_urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "url"
     t.uuid "user_id"
@@ -106,6 +127,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_22_082748) do
     t.datetime "updated_at", null: false
     t.index ["notification_id"], name: "index_users_notifications_on_notification_id"
     t.index ["user_id"], name: "index_users_notifications_on_user_id"
+  end
+
+  create_table "users_roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

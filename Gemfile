@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 gem "active_model_serializers"
+gem "aws-sdk-s3"
 gem "bcrypt"
 gem "bootsnap", require: false
 gem "bootstrap-sass"
@@ -35,6 +36,7 @@ gem "sentry-ruby", "~> 5.9"
 gem "sentry-sidekiq", "~> 5.9"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
 gem "sidekiq-scheduler", "~> 5.0", ">= 5.0.3"
+gem "vcr", "~> 6.2"
 
 group :development, :test do
   gem "factory_bot_rails"
