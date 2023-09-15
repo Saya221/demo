@@ -426,6 +426,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stimulus-rails (1.2.2)
+      railties (>= 6.0.0)
     thor (1.2.2)
     tilt (2.1.0)
     timeout (0.4.0)
@@ -494,6 +496,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen
+  stimulus-rails (~> 1.2, >= 1.2.2)
   turbo-rails (~> 1.4)
   tzinfo-data
   vcr (~> 6.2)
