@@ -36,6 +36,7 @@ gem "sentry-ruby", "~> 5.9"
 gem "sentry-sidekiq", "~> 5.9"
 gem "sidekiq", "~> 7.1.3"
 gem "sidekiq-scheduler", "~> 5.0", ">= 5.0.3"
+gem "stimulus-rails", "~> 1.2", ">= 1.2.2"
 gem "turbo-rails", "~> 1.4"
 gem "vcr", "~> 6.2"
 
