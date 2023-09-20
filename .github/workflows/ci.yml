@@ -136,3 +136,9 @@ jobs:
         run: |
           gem install brakeman
           brakeman -q -w2
+
+      - name: JS audit and version check
+        run: |
+          bin/importmap audit
+          bin/importmap outdated
+          bin/importmap json

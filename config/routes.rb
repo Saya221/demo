@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # BE
   root to: redirect("/swagger/index.html")
 
+  extend TurboHotwireRoutes
   extend ApiRoutes
   extend SidekiqRoutes
 
