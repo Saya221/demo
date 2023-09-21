@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   private
 
   def login
-    @login ||= HTTParty.post combined(api_v1_login_path), body: login_request_body
+    @login ||= HTTParty.post combined(api_v1_login_path), body: login_request_body, headers:
   end
 
   def login_request_body
@@ -34,6 +34,12 @@ class SessionsController < ApplicationController
         email: params[:session][:email],
         password: params[:session][:password]
       }
+    }
+  end
+
+  def headers
+    {
+      "X-CRSF-Token": request.params["authenticity_token"]
     }
   end
 
