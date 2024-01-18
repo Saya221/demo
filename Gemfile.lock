@@ -73,6 +73,11 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    algolia (2.3.4)
+      faraday (>= 0.15, < 3)
+      faraday-net_http_persistent (>= 0.15, < 3)
+      multi_json (~> 1.0)
+      net-http-persistent
     ast (2.4.2)
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
@@ -173,6 +178,9 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    faraday-net_http_persistent (2.1.0)
+      faraday (~> 2.5)
+      net-http-persistent (~> 4.0)
     fcm (1.0.8)
       faraday (>= 1.0.0, < 3.0)
       googleauth (~> 1)
@@ -242,6 +250,8 @@ GEM
     msgpack (1.7.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    net-http-persistent (4.0.2)
+      connection_pool (~> 2.2)
     net-imap (0.3.7)
       date
       net-protocol
@@ -255,6 +265,8 @@ GEM
     nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     os (1.1.4)
     pagy (6.0.4)
@@ -450,9 +462,11 @@ GEM
 PLATFORMS
   arm64-darwin-22
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers
+  algolia (~> 2.3.4)
   aws-sdk-s3
   bcrypt
   bootsnap

@@ -1,13 +1,15 @@
-class APP
+# frozen_string_literal: true
+
+module APP
   NAME = Rails.application.class.module_parent_name.downcase.freeze
 end
 
-class SIDEKIQ_QUEUES
-  SEND_EMAILS = "send_emails".freeze
-  PRODUCER = "producer".freeze
+module SIDEKIQ_QUEUES
+  SEND_EMAILS = "send_emails"
+  PRODUCER = "producer"
 end
 
-class ACTION
+module ACTION
   UPDATE = :update!
   DESTROY = :destroy!
 end
@@ -24,5 +26,5 @@ module TELEGRAM
   end
 end
 
-UNAUTHORIZED_ERRORS = %i[inactive_user].freeze
-SORT_DIRECTIONS = %i[asc ASC desc DESC].freeze
+UNAUTHORIZED_ERRORS = %i[inactive_user]
+SORT_DIRECTIONS = %i[asc ASC desc DESC]
