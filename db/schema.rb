@@ -63,8 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_102803) do
   end
 
   create_table "permissions", force: :cascade do |t|
+    t.string "name"
+    t.string "scope"
+    t.string "version"
+    t.uuid "creator_id"
+    t.uuid "last_updater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_permissions_on_creator_id"
+    t.index ["last_updater_id"], name: "index_permissions_on_last_updater_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -79,8 +86,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_102803) do
   end
 
   create_table "roles_permissions", force: :cascade do |t|
+    t.uuid "role_id"
+    t.uuid "permission_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
+    t.index ["role_id", "permission_id"], name: "index_roles_permissions_on_role_id_and_permission_id", unique: true
+    t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
   create_table "shared_urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -130,8 +142,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_102803) do
   end
 
   create_table "users_roles", force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
 end
