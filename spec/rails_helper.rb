@@ -19,6 +19,7 @@ SimpleCov.start do
   add_filter %r{^/db/}
   add_filter %r{^/spec/}
 
+  add_group "Adapters", "app/adapters"
   add_group "Controllers", "app/controllers"
   add_group "Forms", "app/forms"
   add_group "Helpers", "app/helpers"

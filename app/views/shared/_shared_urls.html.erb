@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-  <% @shared_urls["data"]["shared_urls"].each do |shared_url| %>
+  <% @shared_urls["data"]["shared_urls"]&.each do |shared_url| %>
     <div style="overflow: hidden;">
       <div class="image-container" alt="image" style="float: left; width: 50%;">
         <%= link_to(image_tag("#{shared_url['thumbnail_url']}"), shared_url["url"], target: "_blank") %>

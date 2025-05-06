@@ -1,6 +1,8 @@
 module ApiRoutes
   def self.extended(router)
     router.instance_exec do
+      get :api_docs, to: redirect("/swagger/index.html")
+
       namespace :api, format: :json do
         namespace :v1 do
           resources :sign_up_users, only: %i[create]

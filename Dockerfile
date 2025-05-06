@@ -15,10 +15,11 @@ WORKDIR /usr/src/app
 COPY Gemfile Gemfile.lock ./
 
 RUN gem install bundler:2.4.10
+RUN gem install foreman
 RUN bundle lock --add-platform aarch64-linux-musl && bundle install
 
 COPY . .
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["foreman", "start", "-f", "Procfile.prod"]
